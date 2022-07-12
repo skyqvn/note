@@ -1,0 +1,71 @@
+create database mydatabase;
+
+drop database mydatabase;
+
+use mydatabase;
+
+show tables;
+
+show databases;
+
+show full processlist;
+
+create table if not exists `mytable`(
+   `id` int unsigned auto_increment,
+   `title` varchar(100) not null,
+   `author` varchar(40) not null,
+   `submission_date` date default current_timestamp,
+   primary key ( `id` )
+)engine=innodb default charset=utf8;
+
+drop table mytable ;
+
+desc mytable;
+
+show columns from mytable;
+
+insert into mytable ( title,author )
+                      values
+                      ( 'golang','google' );
+
+insert into mytable(title) values('java')('mysql')('python');
+
+select id,title from table_name where id=1;
+
+update mytable set name='new value' where id=1;
+
+select * from mytable  where author like '%com';
+
+select * from mytable  where author like '%com' limit 1;
+
+delete from mytable [where clause];
+
+alter table mytable drop member_length;
+
+alter table mytable add member_length int;
+
+alter table mytable modify c char(10);
+
+alter table mytable change member_length j bigint;
+
+alter table mytable alter member_length set default 1000;
+
+alter table mytable rename to mytable2;
+
+select * from mytable order by submission_date asc;
+
+select * from mytable order by submission_date desc;
+
+create table if not exists `mytable2`(
+   `id` int unsigned auto_increment primary key,
+   `submission_date` date default current_timestamp
+   on update current_timestamp,
+   `mytable_id` int unsigned foreign key references mytable(id)
+)engine=innodb default charset=utf8;
+
+alter table mytable drop foreign key mytable_id;
+
+//备份数据
+mysqldump -uroot -p123456 mydatabase > /database/mydatabase.sql
+
+mysqldump -uroot -p123456 -d mydatabase > /database/mydatabase.sql

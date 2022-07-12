@@ -1,0 +1,2 @@
+git config core.excludesfile .gitignore//设置忽略文件
+git config --global http.sslVerify "false"//文件过大无法上传

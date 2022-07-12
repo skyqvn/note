@@ -1,0 +1,7 @@
+.\pg_ctl.exe register -N "postgresql" -D "[...]/data"
+
+initdb.exe -E UTF-8 -D "[...]data"
+
+sc delete postgresql
+
+createuser -s -r postgres
