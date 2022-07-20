@@ -1,2 +1,7 @@
 git config core.excludesfile .gitignore//设置忽略文件
 git config --global http.sslVerify "false"//文件过大无法上传
+git remote add origin https://.../... .git
+git --bare init //初始化git 
+git remote -v 查看远程origin 
+git remote rm origin 删除远程origin 
+git push -u origin master //第一次push的时候要- u 

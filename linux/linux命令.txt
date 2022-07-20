@@ -1,0 +1,46 @@
+#管理员
+sudo su
+#环境变量
+vim ~/.bashrc
+export PATH=$PATH:/home/sky/az/go/bin
+#日期
+date
+#日历
+cal 2022
+#关机
+shutdown -h now
+poweroff
+#重启
+shutdown -r now
+#移动
+cd /
+#查看
+ls
+#结构
+tree
+#显示路径
+pwd
+#创建目录
+mkdir dir
+#删除文件
+rm
+#删除目录
+rmdir
+#移动/重命名
+mv dir1 dir2
+#复制文件
+cp file1 file2
+#复制目录
+cp -a dir1 dir2
+#查看端口
+lsof -i:port1
+#写入文件
+echo "export PATH1=PATH >> ~/.bash_profile
+#软链接
+ln -s path1 path2
+#启动项
+systemctl restart xxx
+systemctl start xxx
+systemctl stop xxx
+systemctl status xxx
+systemctl enable xxx

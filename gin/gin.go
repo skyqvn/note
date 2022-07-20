@@ -109,11 +109,50 @@ func main() {
 	//  {{.field}}
 	//{{end}}
 	//响应内容
-	//context.JSON(200, gin.H{
-	//	"msg": "OK"})
-	//context.HTML(200, "index.tmpl", gin.H{
-	//	"title": "Main website"})
-	//context.Redirect(301, "http://www.google.com/")
+	engine.GET("/", func(context *gin.Context) {
+		context.JSON(200, gin.H{
+			"msg": "OK",
+		})
+	})
+	engine.GET("/", func(context *gin.Context) {
+		context.HTML(200, "index.tmpl", gin.H{
+			"title": "Main website"})
+	})
+	engine.GET("/", func(context *gin.Context) {
+		context.Redirect(301, "http://www.google.com/")
+	})
+	engine.GET("/", func(context *gin.Context) {
+		context.String(200, "msg:%s", "ok")
+	})
+	engine.GET("/", func(context *gin.Context) {
+		context.File("/favicon.ico")
+	})
+	engine.GET("/", func(context *gin.Context) {
+		context.Data(200, "text/plain; charset=utf-8", []byte{'h', 'e', 'l', 'l', 'o'})
+	})
+	//HTML文档标记：text/html;
+	//JPEG图片标记：image/jpeg;
+	//GIF图片标记：image/gif;
+	//js文档标记：application/javascript;
+	//xml文件标记：application/xml;
+	//纯文本格式 : text/plain;
+	//WORD : application/msword;
+	//.mp4 : video/mpeg4
+	//.w4a : video/mp4
+	//.w4v : video/mp4
+	//.mp3 : audio/mp3
+	//.wmv : video/x-ms-wmv
+	//.avi : video/avi
+	//.wma : video/wma
+	//.wov : video/quicktime
+	//.3gp : video/3gpp
+	//.webm : video/webm
+	//.flv : video/x-flv
+	//.mpeg : video/mpg
+	//.mts : video/vnd.dlna.mpeg-tts
+	//.vob : video/vob
+	//.mkv : video/x-matroska
+	
 	//参数
 	engine.GET("/", func(context *gin.Context) {
 		name := context.Query("name")
@@ -237,6 +276,7 @@ func main() {
 	//context.ShouldBindJSON(&user)
 	//context.BindXML(&user)
 	//context.ShouldBindXML(&user)
+	
 	//context其他
 	//获取路径
 	engine.GET("/", func(context *gin.Context) {
