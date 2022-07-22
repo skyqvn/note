@@ -10,6 +10,8 @@ show databases;
 
 show full processlist;
 
+set persist max_connections = 500;
+
 create table if not exists `mytable`
 (
     `id`              int unsigned auto_increment,

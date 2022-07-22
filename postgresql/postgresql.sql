@@ -41,6 +41,43 @@ grant select, insert, update, delete on mytable to myuser;
 revoke select, insert, update, delete on mytable from myuser;
 
 
+-- sequence
+
+-- 查询序列
+\ds
+
+-- 创建sequence
+create sequence mysequence
+    start 1
+    increment 1 -- 自增数
+    minvalue 0 --最小值
+    maxvalue 1000 --最大值
+    cycle --到达最大值后重置
+;
+
+-- 删除序列
+drop sequence mysequence;
+
+-- 获取下一个sequence
+select nextval('mysequence');
+
+-- 获取当前sequence
+select last_value
+from mysequence;
+
+-- 获取当前会话最后一次调用'mysequence'的nextval的返回值
+select currval('mysequence');
+
+-- 获取当前会话最后一次调用nextval的返回值
+select lastval();
+
+--设置sequence的值,下次nextval时+1
+select setval('mysequence', 1);
+
+--设置sequence的值,下次nextval时从当前值开始
+select setval('mysequence', 1, false);
+
+
 -- Schema
 
 -- 创建Schema
@@ -52,13 +89,19 @@ select current_schema;
 -- Schema列表
 \dn
 
+-- 删除空schema
+drop schema myschema;
+
+-- 删除schema和内部所有表格
+drop schema myschema cascade;
+
 
 -- 表
 
 -- 创建表
 create table mytable
 (
-    id      int primary key not null,
+    id      int primary key not null default nextval('mysequence'),
     name    text            not null,
     age     int             not null,
     address char(50),
@@ -83,6 +126,17 @@ order by id desc;
 alter table mytable
     owner to owner名;
 
+
+--表内容编辑
+
+--插入内容
+insert into mytable(name, age, address, salary, sex)
+values ('myuser', 18, '', 200, 'female');
+
+-- 删除内容
+delete
+from mytable
+where id = 1;
 
 -- 表结构修改
 
