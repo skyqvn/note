@@ -84,23 +84,23 @@ select *
 from mytable
 order by submission_date desc;
 
-CREATE INDEX myindex
-    ON mytable (title);
+create index myindex
+    on mytable (title);
 
-CREATE INDEX myindex
-    ON mytable (title desc);
+create index myindex
+    on mytable (title desc);
 
-CREATE INDEX myindex
-    ON mytable (title, submission_date);
+create index myindex
+    on mytable (title, submission_date);
 
-CREATE UNIQUE INDEX myindex
-    ON mytable (title);
+create unique index myindex
+    on mytable (title);
 
-ALTER TABLE mytable
-    ALTER INDEX myindex INVISIBLE;
+alter table mytable
+    alter index myindex invisible;
 
-ALTER TABLE mytable
-    ALTER INDEX myindex VISIBLE;
+alter table mytable
+    alter index myindex visible;
 
 create table if not exists `mytable2`
 (
