@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 	"time"
 )
@@ -135,6 +136,60 @@ func main() {
 	fmt.Printf("System interface type: %T\n", fileStat.Sys())
 	fmt.Printf("System info: %+v\n", fileStat.Sys())
 	
+	//写入文件
+	file, err = os.OpenFile("test.txt", os.O_WRONLY, 0666)
+	if err != nil {
+		panic(err)
+	}
+	byteWriter, err := file.Write([]byte{'h', 'e', 'l', 'l', 'o'})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(byteWriter)
+	
+	byteWriter, err = file.WriteAt([]byte{'h', 'e', 'l', 'l', 'o'}, 1)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(byteWriter)
+	
+	byteWriter, err = file.WriteString("hello")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(byteWriter)
+	file.Close()
+	
+	//读取文件
+	file, err = os.OpenFile("test.txt", os.O_RDONLY, 0666)
+	if err != nil {
+		panic(err)
+	}
+	var fb = make([]byte, 1)
+	for {
+		byteReader, err := file.Read(fb)
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			panic(err)
+		}
+		fmt.Println(byteReader)
+		fmt.Println(fb)
+	}
+	
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(data)
+	
+	data, err = ioutil.ReadFile("test.txt")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(data)
+	
 	//查看文件是否存在
 	fileStat, err = os.Stat("test.txt")
 	if err != nil {
@@ -150,6 +205,7 @@ func main() {
 			panic(fmt.Errorf("无权限打开文件：test.txt"))
 		}
 	}
+	file.Close()
 	
 	//改变文件权限
 	err = os.Chmod("test.txt", 0777)
@@ -175,11 +231,11 @@ func main() {
 	//复制文件
 	file, err = os.Create("test.txt")
 	cpfile, err := os.Create("cptest.txt")
-	byteWriter, err := io.Copy(cpfile, file)
+	byteWriter2, err := io.Copy(cpfile, file)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("拷贝了%d个字节", byteWriter)
+	fmt.Printf("拷贝了%d个字节", byteWriter2)
 	file.Close()
 	
 	//跳转文件指定位置
@@ -196,6 +252,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Println(position)
+	file.Close()
 	
 	//Exit 函数可以让当前程序以给出的状态码 code 退出。
 	os.Exit(0)
