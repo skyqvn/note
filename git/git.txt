@@ -1,7 +1,15 @@
 git config core.excludesfile .gitignore//设置忽略文件
 git config --global http.sslVerify "false"//文件过大无法上传
 git remote add origin https://.../... .git
-git --bare init //初始化git 
-git remote -v 查看远程origin 
-git remote rm origin 删除远程origin 
-git push -u origin master //第一次push的时候要- u 
+git remote -v 查看远程origin
+git remote rm origin 删除远程origin
+git push -u origin master //第一次push的时候要- u
+git checkout master//切换到指定分支
+git checkout -b nb//新建分支并切换
+git branch//查看分支
+git tag v1.0//设置版本
+git tag//查看所有版本
+git tag v1.0 5eiiynxkkpvbuu02w8rhu1f26h8soi6uahk8skhv//为指定id的提交设置版本
+git tag v1.0 
+git tag -d v1.0//删除版本号1.0
+git show v1.0//查看版本为1.0的提交
