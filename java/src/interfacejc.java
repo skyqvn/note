@@ -7,13 +7,19 @@ interface j {
 }
 
 class c implements i, j {
+	public void printName() {
+		System.out.println("c");
+	}
+	
 	public void print(String s) {
 		System.out.println(s);
 	}
 }
 
 class b extends c {
-
+	public void printName() {
+		System.out.println("b");
+	}
 }
 
 public class interfacejc {
@@ -30,6 +36,9 @@ public class interfacejc {
 		} catch (Exception e) {
 			System.out.println("b没有实现接口");
 		}
+		
+		cv.printName();
+		bv.printName();
 		
 		i iv = new c();
 		cv = (c) iv;

@@ -17,8 +17,11 @@ public class stringjc {
 		System.out.println(s.charAt(1));
 		System.out.println(s.split(",")[0]);
 		System.out.println(s.split("[ ,]")[0]);
-		System.out.println(new StringBuilder(s4).replace(0, 6, ""));
-		System.out.println(new StringBuilder(s4).insert(0, "hello go,"));
-		System.out.println(new StringBuilder(s4).delete(0, 6));
+		StringBuilder sb = new StringBuilder(s4);
+		sb.ensureCapacity(20);
+		System.out.println(sb.capacity());
+		System.out.println(sb.replace(0, 6, ""));
+		System.out.println(sb.insert(0, "hello go,"));
+		System.out.println(sb.delete(0, 6));
 	}
 }
