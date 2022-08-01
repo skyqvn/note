@@ -3,14 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_"github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
-
-type User struct {
-	Id   int
-	Name string
-	Password  string
-}
 
 func main() {
 	constr := "root:123456@tcp(127.0.0.1:3306)/test"
@@ -39,8 +33,35 @@ func main() {
 				return
 			}
 		} else {
+			break
+		}
+		fmt.Printf("%d.\n%s\n%s\n", user.Id, user.Name, user.Password)
+	}
+	
+	tx, err := db.Begin()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	_, err = tx.Exec("insert into users(name, password) values('sky','123456')")
+	if err != nil {
+		fmt.Println(err)
+		err = tx.Rollback()
+		if err != nil {
+			fmt.Println(err)
 			return
 		}
-		fmt.Printf("%d.\n%s\n%s\n",user.Id,user.Name,user.Password)
+		return
 	}
+	err = tx.Commit()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+type User struct {
+	Id       int
+	Name     string
+	Password string
 }
