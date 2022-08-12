@@ -4,8 +4,7 @@
     <list default="true" id="d67ae882-545b-4200-bea4-0e777a6b72f2" name="默认变更列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/os/os.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/os/os.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/reflect/reflect.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/reflect/reflect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/gin/gin.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/gin/gin.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
