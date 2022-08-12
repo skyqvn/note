@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d67ae882-545b-4200-bea4-0e777a6b72f2" name="默认变更列表" comment="" />
+    <list default="true" id="d67ae882-545b-4200-bea4-0e777a6b72f2" name="默认变更列表" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/os/os.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/os/os.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/reflect/reflect.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/reflect/reflect.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +15,14 @@
   <component name="GOROOT" url="file://C:/Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -29,12 +42,20 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/go/email/email.go" />
   </component>
-  <component name="RunManager" selected="Go 构建.go build test">
+  <component name="RunManager" selected="Go 构建.go build os.go">
     <configuration name="go build email" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="note" />
       <working_directory value="$PROJECT_DIR$/go/email" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/go/email/email.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build os.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="note" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/go/os/os.go" />
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
@@ -49,7 +70,13 @@
     <list>
       <item itemvalue="Go 构建.go build email" />
       <item itemvalue="Go 构建.go build test" />
+      <item itemvalue="Go 构建.go build os.go" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go 构建.go build os.go" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

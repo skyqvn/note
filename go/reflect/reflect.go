@@ -57,7 +57,7 @@ func main() {
 	sf := reflect.ValueOf(sayFunc)
 	sf.Call([]reflect.Value{reflect.ValueOf("hello,this is sayFunc")})
 	
-	// 如果函数接收器是指针，记得TypeOf也用指针
+	// 如果函数接收器是指针，记得ValueOf也用指针
 	struv := stru{
 		A: 19,
 		B: "hello",
@@ -65,6 +65,7 @@ func main() {
 	v = reflect.ValueOf(struv)
 	t = reflect.TypeOf(struv)
 	fmt.Printf("there are %d func in type stru\n", v.NumMethod())
+	fmt.Println(t.Method(0).Name)
 	v.Method(0).Call(nil)
 	f := v.MethodByName("C")
 	f.Call(nil)
