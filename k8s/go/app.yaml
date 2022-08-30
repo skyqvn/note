@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: myapp:v1
+          env:
+            - name:name
+            value:hello
+          ports:
+            - containerPort: 80
+      initContainers:
+        - name: myinit1
+          image: myinit1
+          command: [ 'sh', '-c', 'sleep 10' ]
+          resources:
+            requests:
+              cpu: 20m
+        - name: myinit2
+          image: myinit2
+          command: [ 'sh', '-c', 'sleep 10' ]
+          resources:
+            requests:
+              cpu: 30m

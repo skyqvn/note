@@ -13,3 +13,4 @@ git tag v1.0 5eiiynxkkpvbuu02w8rhu1f26h8soi6uahk8skhv//为指定id的提交设�
 git tag v1.0 
 git tag -d v1.0//删除版本号1.0
 git show v1.0//查看版本为1.0的提交
+git fetch origin master//拉取master仓库的代码

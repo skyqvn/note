@@ -44,3 +44,4 @@ systemctl start xxx
 systemctl stop xxx
 systemctl status xxx
 systemctl enable xxx
+systemctl disable xxx

@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d67ae882-545b-4200-bea4-0e777a6b72f2" name="默认变更列表" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go/gin/gin.go" beforeDir="false" afterPath="$PROJECT_DIR$/go/gin/gin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/linux命令.txt" beforeDir="false" afterPath="$PROJECT_DIR$/linux/linux命令.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,19 +36,29 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/go/email/email.go" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../golang/tmp" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Go 构建.go build os.go">
+  <component name="RunManager" selected="Go 构建.go build httputil.go">
     <configuration name="go build email" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="note" />
       <working_directory value="$PROJECT_DIR$/go/email" />
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/go/email/email.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build httputil.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="note" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/go/net.http.httputil/httputil.go" />
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
@@ -70,9 +82,11 @@
       <item itemvalue="Go 构建.go build email" />
       <item itemvalue="Go 构建.go build test" />
       <item itemvalue="Go 构建.go build os.go" />
+      <item itemvalue="Go 构建.go build httputil.go" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 构建.go build httputil.go" />
         <item itemvalue="Go 构建.go build os.go" />
       </list>
     </recent_temporary>
@@ -91,6 +105,18 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
