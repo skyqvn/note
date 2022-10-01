@@ -14,3 +14,6 @@ git tag v1.0
 git tag -d v1.0//删除版本号1.0
 git show v1.0//查看版本为1.0的提交
 git fetch origin master//拉取master仓库的代码
+
+git fetch --all
+git reset --hard origin/master
