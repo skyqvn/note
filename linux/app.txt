@@ -7,4 +7,3 @@ Comment=xxx
 Exec=/usr/local/xxx/xxx
 Icon=/usr/local/xxx/xxx.png
 Terminal=false
-
