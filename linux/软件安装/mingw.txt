@@ -1,0 +1,8 @@
+https://ay123.net/mystudy/519/
+#安装命令
+sudo gedit /etc/apt/sources.list //在sources.list末尾添加如下一行并保存：
+deb http://us.archive.ubuntu.com/ubuntu trusty main universe
+
+#update一下就可以安装了：
+sudo apt-get update
+sudo apt-get install mingw32

@@ -1,0 +1,2 @@
+#linux删除14天计时文件
+rm ~/.navicat64/system.reg
