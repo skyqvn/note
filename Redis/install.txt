@@ -1,0 +1,3 @@
+sudo apt-get install redis
+service redis start
+service redis stop
