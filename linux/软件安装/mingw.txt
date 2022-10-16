@@ -1,8 +1,15 @@
-https://ay123.net/mystudy/519/
-#安装命令
-sudo gedit /etc/apt/sources.list //在sources.list末尾添加如下一行并保存：
-deb http://us.archive.ubuntu.com/ubuntu trusty main universe
+sudo apt-get install mingw-w64
 
-#update一下就可以安装了：
-sudo apt-get update
-sudo apt-get install mingw32
+x86_64-w64-mingw32-g++
+i686-w64-mingw32-g++
+x86_64-w64-mingw32-gcc
+i686-w64-mingw32-gcc
+
+sudo cp /usr/bin/x86_64-w64-mingw32-g++ /usr/bin/g++
+# or
+sudo cp /usr/bin/i686-w64-mingw32-g++ /usr/bin/g++
+
+sudo cp /usr/bin/x86_64-w64-mingw32-gcc /usr/bin/gcc
+# or
+sudo cp /usr/bin/i686-w64-mingw32-gcc /usr/bin/gcc
+
