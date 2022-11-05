@@ -45,3 +45,7 @@ systemctl stop xxx
 systemctl status xxx
 systemctl enable xxx
 systemctl disable xxx
+#软链接
+ln -s /path1 ./file1
+#硬链接
+ln /file1 ./file2

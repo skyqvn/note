@@ -1,0 +1,6 @@
+sudo apt-get install unity
+
+http://t.zoukankan.com/nickchan-p-3104466.html
+
+$HOME/.config/user-dirs.dirs
+XDG_DESKTOP_DIR="$HOME/Desktop"
