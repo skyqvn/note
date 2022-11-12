@@ -1,3 +1,5 @@
 sudo dpkg -i '/home/sky/下载/youdao-dict_6.0.0-ubuntu-amd64.deb'
 sudo apt-get -f install
 dsudo dpkg -i '/home/sky/下载/youdao-dict_6.0.0-ubuntu-amd64.deb'
+
+https://blog.csdn.net/weixin_32286189/article/details/116636001

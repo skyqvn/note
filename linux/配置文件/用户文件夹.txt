@@ -1,4 +1,5 @@
-$HOME/.config/user-dirs.dirs
+#At:
+#$HOME/.config/user-dirs.dirs
 
 XDG_DESKTOP_DIR="$HOME/桌面"
 XDG_DOWNLOAD_DIR="$HOME/下载"

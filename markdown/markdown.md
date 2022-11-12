@@ -27,8 +27,8 @@ _hello_
 ***hello***  
 __hello__  
 ___hello___  
-<u>hello</u> 
-~~hello~~
+<u>hello</u>  
+~~hello~~  
 [hello](https://www.baidu.com)  
 <https://www.baidu.com>  
 
@@ -116,24 +116,24 @@ func main() {
 
 ![hello](https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png)
 
-|hello|hello|
-|---|---|
-|hello|hello world|
-|how|thank|
+| hello | hello       |
+| ----- | ----------- |
+| hello | hello world |
+| how   | thank       |
 
-|hello|hello|
-|:---:|:---:|
-|hello|hello world|
-|how|thank|
+| hello |    hello    |
+| :---: | :---------: |
+| hello | hello world |
+|  how  |    thank    |
 
-|hello|hello|
-|:---|:---|
-|hello|hello world|
-|how|thank|
+| hello | hello       |
+| :---- | :---------- |
+| hello | hello world |
+| how   | thank       |
 
-|hello|hello|
-|---:|---:|
-|hello|hello world|
-|how|thank|
+| hello |       hello |
+| ----: | ----------: |
+| hello | hello world |
+|   how |       thank |
 
 <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>delete</kbd>

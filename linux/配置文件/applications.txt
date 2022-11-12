@@ -1,0 +1,12 @@
+#At:
+#/usr/share/applications/xxx.desktop
+
+[Desktop Entry]
+Type=Application
+Name=AppName
+Icon=/xxx/AppIcon
+GenericName=App introductions.
+Exec=/xxx/AppExecPath
+Categories=AppCategories
+Terminal=false
+

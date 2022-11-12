@@ -1,0 +1,9 @@
+systemctl list-units --type target           #查看当前可用的target
+systemctlshow-p"Wants"multi-user.target #查看target执行了哪些命令
+ps -ef | grep rundeck-3.4.4-20210920.war           #查看进程
+/var/run           #pid文件位置
+/lib/systemd/system           #service文件位置，以systemctl start XXX时。
+journalctl -u 服务名           #查看service运行信息
+/etc/profile.d/           #自启动文件目录
+/etc/init.d                      #serviced文件目录，以service XXX start时
+systemctl list-units --type target           #显示所有可用的target
