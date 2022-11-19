@@ -29,8 +29,8 @@ PIDFile=/var/run/xxx.pid
 #no #默认值，表示不会启动
 #on-success #表示仅在服务进程正常退出时重启，退出码为0
 #on-failure #表示仅在服务进程异常退出时重启。退出码不为0
-#on-abnormal #
-#on-watchdog #
+#on-abnormal #进程被强制杀死
+#on-watchdog #看门狗超时
 #on-abort #进程被强制杀死
 #always #表示会被无条件的重启
 
@@ -44,7 +44,7 @@ WantedBy=multi-user.target
 __重启原因__  
 ![重启原因](static/cqyy.png)
 
-[PID文件说明](https://blog.csdn.net/m0_45406092/article/details/115984786)
+[PID文件说明](https://segmentfault.com/a/1190000019036070)
 
 Example:
 ```bash

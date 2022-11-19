@@ -1,0 +1,5 @@
+#自身可执行文件
+/proc/self/exe
+#指定PID可执行文件
+/proc/[PID]/exe
+

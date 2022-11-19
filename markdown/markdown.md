@@ -30,13 +30,15 @@ ___hello___
 <u>hello</u>  
 ~~hello~~  
 [hello](https://www.baidu.com)  
-<https://www.baidu.com>  
+<https://www.baidu.com>
 
 > hello
 
 `hello`
 
-:smile: :laughing: :dizzy_face: :sob: :cold_sweat: :sweat_smile:  :cry: :triumph: :heart_eyes: :relaxed: :sunglasses: :weary: :+1: :-1: :100: :clap: :bell: :gift: :question: :bomb: :heart: :coffee: :cyclone: :bow: :kiss: :pray: :sweat_drops: :hankey: :exclamation: :anger:
+:smile: :laughing: :dizzy_face: :sob: :cold_sweat: :sweat_smile:  :cry: :triumph: :heart_eyes: :relaxed: :sunglasses: :
+weary: :+1: :-1: :100: :clap: :bell: :gift: :question: :bomb: :heart: :coffee: :cyclone: :bow: :kiss: :pray: :
+sweat_drops: :hankey: :exclamation: :anger:
 
 - [x] hello
 
@@ -65,13 +67,13 @@ ___hello___
 
 
 1.
-	- hello
-	- hello
-	- hello
+    - hello
+    - hello
+    - hello
 2.
-	- hello
-	- hello
-	- hello
+    - hello
+    - hello
+    - hello
 
 > 1. hello
 > 2. hello
@@ -87,15 +89,15 @@ hello
 
 > package main
 > import (
-> 	"fmt"
+> "fmt"
 > )
 >
 > func hello() {
-> 	fmt.Println("hello")
+> fmt.Println("hello")
 > }
->    
+>
 > func main() {
-> 	hello()
+> hello()
 > }
 
 ```go
@@ -126,9 +128,9 @@ func main() {
 | hello | hello world |
 |  how  |    thank    |
 
-| hello | hello       |
-| :---- | :---------- |
 | hello | hello world |
+| :---- | :---------- |
+| hello | hello       |
 | how   | thank       |
 
 | hello |       hello |
