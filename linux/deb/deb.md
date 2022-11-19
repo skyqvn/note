@@ -21,16 +21,21 @@
     |-----initrd-vstools.img
 ```
 
+## 打包命令:
+```bash
+dpkg -b dirnamexxx packagenamexxx.deb
+```
+
 ## DEBIAN:
 
 ### control: 
-> 必要属性:Package,Version,Architecture,Maintainer,Depends,Description  
+> 必要属性:Package,Version,Architecture,Maintainer,Description  
 > **末尾一定要空一行！！！**
-> 
+
 ```
 Package:packagenamexxx #名称
-Version:V1.0.xxx #版本
-Installed-Size: 1073741824
+Version:1.0.xxx #版本
+Installed-Size: 1073741824xxx #安装后大小
 Architecture:amd64 #CPU架构
 Maintainer:www.xxx.com #维护者网站
 Description:Your description.#描述
@@ -50,7 +55,7 @@ Replaces:axxx #表明哪些软件包将被这个程序取代
 ```
 
 ### preinst:
-> 一个脚本文件，用于备份（以便安装失败时回滚）
+> 处理安装前操作的脚本文件，按需添加
 
 ### prerm:
 > 处理删除前操作的脚本文件，按需添加
@@ -77,3 +82,17 @@ Replaces:axxx #表明哪些软件包将被这个程序取代
 
 ### ./bin/appnamexxx
 > 可执行链接文件存放
+
+安装deb包: dpkg -i mydeb.deb
+
+卸载deb包: dpkg -r mysoftware
+
+查看deb包是否安装: dpkg -s mysoftware
+
+查看deb包文件内容: dpkg -c mydeb.deb
+
+查看当前目录某个deb包的信息: dpkg --info mydeb.deb
+
+解压deb包中所要安装的文件: dpkg -X mydeb.deb mydeb
+
+解压deb包中DEBIAN目录下的文件(至少包含control文件): dpkg -e mydeb.deb mydeb/DEBIAN
