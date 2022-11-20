@@ -1,5 +1,6 @@
-Package:demo
-Version:1.0.0
-Size: 1813806
-Architecture:amd64
-Description:This is a demo.
+Package: demo
+Version: 1.0.0
+Architecture: amd64
+Maintainer: demo <www.demo.com>
+Installed-Size: 1813806
+Description: This is a demo.

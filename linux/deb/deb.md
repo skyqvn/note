@@ -38,6 +38,7 @@ Version:1.0.xxx #版本
 Installed-Size: 1073741824xxx #安装后大小
 Architecture:amd64 #CPU架构
 Maintainer:www.xxx.com #维护者网站
+Homepage:www.xxx.com #项目官网
 Description:Your description.#描述
 Maintainer:yournamexxx<email@yournamexxx.com> #制作此打包文件的作者(名称<邮箱>)
 Depends:axxx,bxxx #软件所依赖的其他软件包和库文件。如果是依赖多个软件包和库文件，彼此之间采用逗号隔开

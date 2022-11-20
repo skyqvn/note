@@ -1,4 +1,4 @@
 #!/bin/bash
 
-dpkg -b demo demo.deb
+dpkg -b demo demo_linux_ubuntu_amd64.deb
 
