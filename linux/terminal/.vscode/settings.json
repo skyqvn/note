@@ -2,5 +2,6 @@
     "files.associations": {
         "termios.h": "c",
         "types.h": "c"
-    }
+    },
+    "DockerRun.DisableDockerrc": true
 }
