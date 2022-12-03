@@ -11,6 +11,8 @@ func main() {
 	numcpu := runtime.GOMAXPROCS(4) //设置CPU核数，必须放在main的开头
 	fmt.Println(numcpu)
 
+	runtime.GC() //手动GC
+
 	fmt.Println(runtime.NumCPU())       //CPU数量
 	fmt.Println(runtime.NumGoroutine()) //goroutine数量
 	fmt.Println(runtime.NumCgoCall())   //返回当前进程的cgo调用数
