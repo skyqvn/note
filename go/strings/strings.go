@@ -35,4 +35,34 @@ func main() {
 
 	strings.IndexFunc(s, isHan)     //第一个汉字位置
 	strings.LastIndexFunc(s, isHan) //最后一个汉字位置
+
+	unicode.Is(unicode.Han, '中') //判断指定unicode码值是否是指定文字
+	unicode.In('中', unicode.Han) //判断指定unicode码值是否是指定文字
+
+	unicode.IsLower('a') //判断指定unicode码值是不是unicode小写
+	unicode.IsUpper('A') //判断指定unicode码值是不是unicode大写
+	unicode.IsTitle('ǅ') //判断指定unicode码值是不是unicode标题大小写
+
+	unicode.To(unicode.UpperCase /*unicode.LowerCase unicode.TitleCase*/, 'a')
+	unicode.ToUpper('a')
+	unicode.ToLower('A')
+	unicode.ToTitle('Ǆ')
+
+	unicode.IsOneOf(
+		[]*unicode.RangeTable{
+			unicode.Han,             //中文
+			unicode.ASCII_Hex_Digit, //英文
+			unicode.P,               //标点
+		}, '中')
+
+	unicode.IsDigit('1')    //判断是不是十进制数字字符
+	unicode.IsNumber('1')   //判断是不是数字字符
+	unicode.IsLetter('a')   //判断是不是字母字符
+	unicode.IsSpace('a')    //判断是不是空格字符
+	unicode.IsControl('\a') //判断是不是控制字符
+	unicode.IsGraphic(',')  //判断是不是图形字符
+	unicode.IsPrint('a')    //判断是不是可打印字符
+	unicode.IsPunct('!')    //判断是不是标点字符
+	unicode.IsSymbol('+')   //判断是不是符号字符
+	unicode.IsSymbol('n')   //判断是不是标记字符
 }
