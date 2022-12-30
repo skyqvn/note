@@ -22,6 +22,9 @@ func main() {
 	strings.IndexAny(s, "o")      //指定字符串中的任意一个unicode码值首次出现的位置
 	strings.LastIndexAny(s, "o")  //指定字符串中的任意一个unicode码值最后一次出现的位置
 
+	strings.Split("hello world"," ")//将指定字符串按sep分割
+	strings.SplitAfter("hello world"," ")//将指定字符串在sep后分割
+
 	strings.HasPrefix(s, "hello") //是否有指定前缀
 	strings.HasSuffix(s, "world") //是否有指定后缀
 
