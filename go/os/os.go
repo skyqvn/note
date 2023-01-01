@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"time"
 )
 
@@ -293,6 +294,10 @@ func main() {
 
 	//创建软链接
 	os.Symlink("/xxx/hello.go", "./hello.go")
+
+	//获取软链接真实位置
+	s, _ := filepath.EvalSymlinks("/bin")
+	fmt.Println(s)
 
 	// Exit 函数可以让当前程序以给出的状态码 code 退出。
 	os.Exit(0)
