@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"time"
 )
 
@@ -190,6 +192,12 @@ func main() {
 	fmt.Printf("System interface type: %T\n", fileStat.Sys())
 	fmt.Printf("System info: %+v\n", fileStat.Sys())
 
+	//判断文件类型
+	fmt.Println(fileStat.Mode()&fs.ModeDir == fs.ModeDir)
+	fmt.Println(fileStat.Mode()&fs.ModeSymlink == fs.ModeSymlink)
+	fmt.Println(fileStat.Mode()&fs.ModeSocket == fs.ModeSocket)
+	//……
+
 	// 查看文件是否存在
 	fileStat, err = os.Stat("test.txt")
 	if err != nil {
@@ -259,7 +267,7 @@ func main() {
 	fmt.Println(isAbs)
 
 	// 将路径分割为路径和文件名
-	fileDir, fileName := path.Split("D:/go/hello.go")
+	fileDir, fileName := path.Split("/xxx/hello.go")
 	fmt.Println(fileDir, fileName)
 
 	// 获取文件后缀名
@@ -267,19 +275,29 @@ func main() {
 	fmt.Println(ext)
 
 	// 将多个路径合并
-	filePath := path.Join("D:/go", "hello.go")
+	filePath := path.Join("/xxx", "hello.go")
 	fmt.Println(filePath)
 
 	// 返回的最后一个元素
-	base := path.Base("D:/go/hello.go")
+	base := path.Base("/xxx/hello.go")
 	fmt.Println(base)
 
 	// 返回路径所在目录
-	fileDir = path.Dir("D:/go/hello.go")
+	fileDir = path.Dir("/xxx/hello.go")
 	fmt.Println(fileDir)
 
 	// 返回同目录的最短路径
-	fileDir = path.Clean("D:/go/hello.go")
+	fileDir = path.Clean("/xxx/hello.go")
+
+	//创建硬链接
+	os.Link("/xxx/hello.go", "./hello.go")
+
+	//创建软链接
+	os.Symlink("/xxx/hello.go", "./hello.go")
+
+	//获取软链接真实位置
+	s, _ := filepath.EvalSymlinks("/bin")
+	fmt.Println(s)
 
 	// Exit 函数可以让当前程序以给出的状态码 code 退出。
 	os.Exit(0)
