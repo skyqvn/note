@@ -1,12 +1,12 @@
 #动态链接库
 #go build -buildmode=c-shared -o name.so [name.go]
-go build -buildmode=c-shared -o sum.so
-g++ main.cpp ./sum.so -o main
+go build -buildmode=c-shared -o name.so
+g++ main.cpp ./name.so -o main
 
 #静态链接库
 #go build -buildmode=c-archive -o name.a [name.go]
-go build -buildmode=c-archive -o sum.a
-g++ main.cpp ./sum.a -o main
+go build -buildmode=c-archive -o name.a
+g++ main.cpp ./name.a -o main
 
 #.o文件
 go tool compile name.go
@@ -19,4 +19,8 @@ go tool objdump -s nameFunc name.o
 
 #编译plan9汇编
 go tool compile -S name.go
+
+#使用静态链接库
+go tool compile -I ./name name.go
+go tool link -o name -L ./name name.o
 
