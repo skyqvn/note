@@ -103,6 +103,9 @@ func main() {
 		panic(err)
 	}
 	file.Close()
+	
+	// 文件描述符
+	fmt.Println(file.Fd())
 
 	// 文件权限
 	// os.O_RDONLY 只读
@@ -192,11 +195,11 @@ func main() {
 	fmt.Printf("System interface type: %T\n", fileStat.Sys())
 	fmt.Printf("System info: %+v\n", fileStat.Sys())
 
-	//判断文件类型
+	// 判断文件类型
 	fmt.Println(fileStat.Mode()&fs.ModeDir == fs.ModeDir)
 	fmt.Println(fileStat.Mode()&fs.ModeSymlink == fs.ModeSymlink)
 	fmt.Println(fileStat.Mode()&fs.ModeSocket == fs.ModeSocket)
-	//……
+	// ……
 
 	// 查看文件是否存在
 	fileStat, err = os.Stat("test.txt")
@@ -289,13 +292,13 @@ func main() {
 	// 返回同目录的最短路径
 	fileDir = path.Clean("/xxx/hello.go")
 
-	//创建硬链接
+	// 创建硬链接
 	os.Link("/xxx/hello.go", "./hello.go")
 
-	//创建软链接
+	// 创建软链接
 	os.Symlink("/xxx/hello.go", "./hello.go")
 
-	//获取软链接真实位置
+	// 获取软链接真实位置
 	s, _ := filepath.EvalSymlinks("/bin")
 	fmt.Println(s)
 
