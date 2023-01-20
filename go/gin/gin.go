@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-
+	
 	"github.com/gin-gonic/gin"
 )
 
@@ -53,7 +53,7 @@ func main() {
 			"msg": "OK",
 		})
 	})
-
+	
 	// 路游参数
 	engine.GET("/:name", func(context *gin.Context) {
 		name := context.Param("name")
@@ -62,6 +62,7 @@ func main() {
 			"name": name,
 		})
 	})
+	
 	// 路由组
 	v1 := engine.Group("v1")
 	{
@@ -71,9 +72,11 @@ func main() {
 			})
 		})
 	}
+	
 	// 声明HTML
 	engine.LoadHTMLGlob("templates/*")
 	engine.LoadHTMLFiles("templates/template1.html", "templates/template2.html")
+	
 	// 模板
 	// 使用模板
 	// {{template "header" .}}
@@ -85,13 +88,14 @@ func main() {
 	// {{if .condition1}}
 	// {{else if .condition2}}
 	// {{end}}
-	// and、or、not
+	// and、or、not、len内置模板函数
 	// {{if and .condition1 .condition2}}
 	// {{end}}
 	// {{if or .condition1 .condition2}}
 	// {{end}}
 	// {{if not .condition}}
 	// {{end}}
+	// {{len .var}}
 	// 等于、不等于、小于、大于
 	// {{if eq .var1 .var2}}
 	// {{end}}
@@ -109,6 +113,11 @@ func main() {
 	//  {{.LocalVar}}
 	//  {{.field}}
 	// {{end}}
+	// 裁剪空格
+	// {{- .var -}}
+	// {{ .var -}}
+	// {{- .var }}
+	
 	// 响应内容
 	engine.GET("/", func(context *gin.Context) {
 		context.JSON(200, gin.H{
@@ -153,7 +162,7 @@ func main() {
 	// .mts : video/vnd.dlna.mpeg-tts
 	// .vob : video/vob
 	// .mkv : video/x-matroska
-
+	
 	// 参数
 	// Query
 	engine.GET("/", func(context *gin.Context) {
@@ -292,7 +301,7 @@ func main() {
 			"msg": "OK",
 		})
 	})
-
+	
 	engine.GET("/", func(context *gin.Context) {
 		var user2 User
 		err := context.ShouldBindQuery(&user2)
@@ -310,7 +319,7 @@ func main() {
 	// context.ShouldBindJSON(&user)
 	// context.BindXML(&user)
 	// context.ShouldBindXML(&user)
-
+	
 	// context其他
 	// 获取路径
 	engine.GET("/", func(context *gin.Context) {
@@ -412,7 +421,7 @@ func main() {
 	if engine.Run("0.0.0.0:80") != nil {
 		return
 	}
-
+	
 }
 
 func middle() gin.HandlerFunc {
