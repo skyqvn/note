@@ -24,3 +24,5 @@ go tool compile -S name.go
 go tool compile -I ./name name.go
 go tool link -o name -L ./name name.o
 
+#不启动命令行
+go build -ldflags="-H windowsgui"
