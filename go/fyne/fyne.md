@@ -89,6 +89,22 @@ mywindow.SetMaster()
 
 ```
 
+### 无边框窗口
+```go
+d := fyne.CurrentApp().Driver()
+if mydrv, ok := d.(desktop.Driver); ok {
+	w := mydrv.CreateSplashWindow()
+	w.SetContent(widget.NewLabelWithStyle("Hello World!",
+		fyne.TextAlignCenter, fyne.TextStyle{Bold: true}))
+	w.Show()
+	
+	go func() {
+		time.Sleep(time.Second * 3)
+		w.Close()
+	}()
+}
+```
+
 ## 提示
 
 ```go
@@ -533,15 +549,6 @@ func NewRec(clo color.Color) *Rec {
 	f.CreateRenderer()
 	f.Refresh()
 	return f
-}
-
-func main() {
-	mw.SetContent(container.NewVBox(
-		widget.NewLabel("left"),
-		NewRec(color.Black),
-		widget.NewLabel("right"),
-	))
-	mw.ShowAndRun()
 }
 
 ```
