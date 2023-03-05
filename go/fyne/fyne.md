@@ -5,7 +5,12 @@
 ### 设置字体
 
 ```go
-os.Setenv("FYNE_FONT", "C:\\Windows\\Fonts\\simhei.ttf")
+//fonts
+// |
+// |---msyh-Regular.ttc
+// |---msyh-Bold.ttc
+
+os.Setenv("FYNE_FONT", "fonts/msyh-Regular.ttc")
 ```
 
 ## 数据
@@ -14,7 +19,6 @@ os.Setenv("FYNE_FONT", "C:\\Windows\\Fonts\\simhei.ttf")
 mypos := fyne.NewPos(200, 200)
 mysize := fyne.NewSize(200, 200)
 mypic := theme.FyneLogo()
-
 ```
 
 ## 应用
@@ -86,10 +90,10 @@ mywindow.Clipboard()
 mywindow.RequestFocus()
 //窗口关闭时退出程序
 mywindow.SetMaster()
-
 ```
 
 ### 无边框窗口
+
 ```go
 d := fyne.CurrentApp().Driver()
 if mydrv, ok := d.(desktop.Driver); ok {
@@ -103,6 +107,7 @@ if mydrv, ok := d.(desktop.Driver); ok {
 		w.Close()
 	}()
 }
+
 ```
 
 ## 提示
@@ -118,7 +123,6 @@ type Clipboard interface {
     Content() string
     SetContent(content string)
 }
-
 ```
 
 ## 颜色
@@ -128,7 +132,6 @@ green := color.NRGBA{R: 0, G: 180, B: 0, A: 255}
 black := color.NRGBA{R: 0, G: 0, B: 0, A: 255}
 red := color.NRGBA{R: 180, G: 0, B: 0, A: 255}
 white := color.White
-
 ```
 
 ## 画布
@@ -145,7 +148,6 @@ myrect := canvas.NewRectangle(black)
 myline := canvas.NewLine(red)
 mycircle := canvas.NewCircle(white)
 myimage := canvas.NewImageFromResource(theme.FyneLogo())
-
 ```
 
 ### 画布方法
@@ -156,7 +158,6 @@ mycanvas.SetContent(mytext)
 mycanvas.Refresh(mycircle)
 mycanvas.Size()
 mycanvas.SetOnTypedKey(func(ke *fyne.KeyEvent) { fmt.Println(ke) })
-
 ```
 
 ### 画布对象方法
@@ -171,7 +172,6 @@ mytext.Hide()
 mytext.Show()
 mytext.Visible()
 myimage.Move(mypos)
-
 ```
 
 ### 设置描边
@@ -179,7 +179,6 @@ myimage.Move(mypos)
 ```go
 mycircle.StrokeWidth = 4
 mycircle.StrokeColor = red
-
 ```
 
 ## 文件打开
@@ -190,7 +189,6 @@ mycircle.StrokeColor = red
 dialog.NewFileOpen()
 dialog.NewFileSave()
 dialog.NewFolderOpen()
-
 ```
 
 ### 立即显示
@@ -199,7 +197,6 @@ dialog.NewFolderOpen()
 dialog.ShowFileOpen()
 dialog.ShowFileSave()
 dialog.ShowFolderOpen()
-
 ```
 
 ### 选择框大小
@@ -239,7 +236,6 @@ dialog.ShowConfirm()
 dialog.NewConfirm()
 dialog.ShowEntryDialog()
 dialog.NewEntryDialog()
-
 ```
 
 ## 布局
@@ -275,7 +271,6 @@ if mycanvas, ok := mywindow.Canvas().(desktop.Canvas); ok {
 ```go
 mylab:= widget.NewLabel("hello")
 mylab.SetText("ok")
-
 ```
 
 ### Entry
@@ -324,14 +319,6 @@ mybut.OnTapped
 //ButtonAlignCenter 文字在按钮中间
 //ButtonAlignLeading 文字在按钮左侧
 //ButtonAlignTrailing 文字在按钮右侧
-
-```
-
-### Menu
-
-```go
-//弹出菜单
-widget.ShowPopUpMenuAtPosition()
 
 ```
 
@@ -405,6 +392,16 @@ type DoubleTappable interface {
 
 ```
 
+### 鼠标形状
+
+```go
+// Cursorable describes any CanvasObject that needs a cursor change
+type Cursorable interface {
+	Cursor() Cursor
+}
+
+```
+
 ### 鼠标滚动
 
 ```go
@@ -466,7 +463,6 @@ func newContextMenuButton(label string, menu *fyne.Menu) *contextMenuButton {
 
 ```
 
-
 ### 填充
 
 ```go
@@ -483,7 +479,6 @@ import (
 )
 
 var ma = app.New()
-var mw = ma.NewWindow("test")
 
 type Rec struct {
 	widget.BaseWidget
@@ -550,5 +545,124 @@ func NewRec(clo color.Color) *Rec {
 	f.Refresh()
 	return f
 }
+
+```
+
+### 是/否/取消
+
+```go
+package main
+
+import (
+	"fmt"
+	"fyne.io/fyne"
+	"fyne.io/fyne/app"
+	"fyne.io/fyne/canvas"
+	"fyne.io/fyne/container"
+	"fyne.io/fyne/layout"
+	"fyne.io/fyne/widget"
+	"image/color"
+	
+	_ "unsafe"
+)
+
+//go:linkname NewModalPopUp fyne.io/fyne/widget.newModalPopUp
+func NewModalPopUp(content fyne.CanvasObject, canvas fyne.Canvas) *widget.PopUp
+
+func NewButtonList(buttons ...*widget.Button) fyne.CanvasObject {
+	list := fyne.NewContainerWithLayout(layout.NewGridLayout(len(buttons)))
+	
+	for _, button := range buttons {
+		list.Add(button)
+	}
+	
+	return list
+}
+
+type Option int
+
+const (
+	Yes Option = iota
+	No
+	Cancel
+)
+
+type ConfirmWithCancelDialog struct {
+	title, message string
+	callback       func(o Option)
+	parent         fyne.Window
+	p *widget.PopUp
+}
+
+func (c *ConfirmWithCancelDialog) Show() {
+	c.p.Show()
+}
+
+func (c *ConfirmWithCancelDialog) Hide() {
+	c.p.Hide()
+}
+
+func (c *ConfirmWithCancelDialog) Resize(size fyne.Size)  {
+	c.p.Resize(size)
+}
+
+func NewConfirmWithCancel(title, message string, callback func(o Option), parent fyne.Window) *ConfirmWithCancelDialog {
+	c := new(ConfirmWithCancelDialog)
+	c.title = title
+	c.message = message
+	c.callback = callback
+	c.parent = parent
+	
+	t := canvas.NewText(c.title, color.Black)
+	t.TextSize = 15
+	t.TextStyle=fyne.TextStyle{
+		Bold:      true,
+		Italic:    false,
+		Monospace: false,
+	}
+	tit := container.NewHBox(t)
+	t.Refresh()
+	con := canvas.NewText(c.message, color.Black)
+	con.TextSize = 20
+	contentBox := container.NewCenter(con)
+	yes := widget.NewButton("Yes", func() {
+		c.p.Hide()
+		c.callback(Yes)
+	})
+	yes.Alignment = widget.ButtonAlignCenter
+	yes.Importance = widget.HighImportance
+	no := widget.NewButton("No", func() {
+		c.p.Hide()
+		c.callback(No)
+	})
+	no.Alignment = widget.ButtonAlignCenter
+	no.Importance = widget.LowImportance
+	cancel := widget.NewButton("Cancel", func() {
+		c.p.Hide()
+		c.callback(Cancel)
+	})
+	cancel.Alignment = widget.ButtonAlignCenter
+	cancel.Importance = widget.LowImportance
+	page := container.NewBorder(tit, NewButtonList(yes, no, cancel),nil,nil,contentBox)
+	c.p=NewModalPopUp(page,c.parent.Canvas())
+	return c
+}
+
+func ShowConfirmWithCancel(title, message string, callback func(o Option), parent fyne.Window)  {
+	c := NewConfirmWithCancel(title, message, callback, parent)
+	c.Show()
+}
+
+```
+
+## 弹出
+
+```go
+//弹出菜单
+widget.ShowPopUpMenuAtPosition()
+//弹出模拟上层窗口
+widget.ShowModalPopUp()
+//弹出组件
+widget.ShowPopUpAtPosition()
 
 ```
