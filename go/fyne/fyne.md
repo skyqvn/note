@@ -666,3 +666,9 @@ widget.ShowModalPopUp()
 widget.ShowPopUpAtPosition()
 
 ```
+
+## 内置底层方法
+```go
+//文本大小
+fyne.MeasureText()
+```
