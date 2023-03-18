@@ -658,12 +658,14 @@ func ShowConfirmWithCancel(title, message string, callback func(o Option), paren
 ## 弹出
 
 ```go
+//覆盖
+mywindow.Canvas().Overlays().Add()
+//弹出组件
+widget.ShowPopUpAtPosition()
 //弹出菜单
 widget.ShowPopUpMenuAtPosition()
 //弹出模拟上层窗口
 widget.ShowModalPopUp()
-//弹出组件
-widget.ShowPopUpAtPosition()
 
 ```
 
