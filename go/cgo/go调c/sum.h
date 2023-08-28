@@ -3,4 +3,4 @@
 
 int s();
 
-#endif //_GOCTEST_
+#endif
