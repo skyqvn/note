@@ -1,5 +1,9 @@
 # Walk
 
+
+
+## rsrc
+
 ```bash
 rsrc -manifest xxx.exe.manifest -o rsrc.syso
 ```
@@ -19,23 +23,11 @@ window := MainWindow{
 	MinSize:  Size{600, 400},
 	Layout:   VBox{},
 	Children: []Widget{
-		PushButton{
-			Text: "SCREAM",
-			OnClicked: func() {
-				outTE.SetText(strings.ToUpper(inTE.Text()))
-			},
-		},
+        //···
 	},
 }
-window.Run()
-```
-
-### Set初始化
-
-```go
 window.Create()
-//w.SetIcon(i)
-//set操作
+//各种set操作
 //...
 w.Run()
 ```
@@ -125,6 +117,12 @@ win.WS_THICKFRAME 允许拉伸窗口大小
 
 ```
 
+### 其他函数
+
+```go
+walk.DriveNames()
+```
+
 
 
 ## 组件
@@ -154,11 +152,236 @@ OnCheckStateChanged walk.EventHandler
 #### 事件
 
 ```text
+//可配合RadioButtonGroupBox
 //窗口事件···
 OnClicked walk.EventHandler
 ```
 
-### 官方示例
+### ProgressBar
+
+#### 属性
+
+```text
+MaxValue//最大值
+MinValue//最小值
+Value//值
+MarqueeMode//是否为未知模式（true时进度条不断移动，false时进度条稳定在Value位置）
+```
+
+### Combobox
+
+#### 属性
+
+```go
+DisplayMember//显示的值
+BindingMember//数据绑定的值
+Model//模型
+Value//值
+CurrentIndex//默认选项的索引
+Editable//是否可编辑
+```
+
+### 容器
+
+```go
+Composite//普通容器
+GradientComposite
+GroupBox//分组（有边框线）
+RadioButtonGroupBox
+HSplitter//横向分割（可鼠标调整宽度）
+VSplitter//纵向分割（可鼠标调整宽度）
+ScrollView//带进度条
+TabPage
+```
+
+### 常用组件
+
+```go
+SplitButton//下拉按钮
+Combobox//下拉菜单
+CheckBox
+DateEdit
+DateLabel
+ImageView
+LineEdit
+LinkLabel
+ListBox
+NumberEdit
+NumberLabel
+ProgressBar
+TextEdit
+TextLabel
+ToolBar
+ToolButton
+TreeView
+VSeparator//纵向分割（横线）
+HSeparator//横向分割（竖线）
+VSpacer//纵向填充
+HSpacer//横向填充
+```
+
+## 字体
+
+```go
+Font{
+	Family:    "",//字体家族
+	PointSize: 0,//字号
+	Bold:      false,//粗体
+	Italic:    false,//斜体
+	Underline: false,//下划线
+	StrikeOut: false,//删除线
+}
+```
+
+
+
+## 文件对话框
+
+### 设置
+
+```go
+fd := walk.FileDialog{
+	Title:          "打开文档",   //标题
+	FilePath:       "",         //默认文件
+	FilePaths:      nil,        //默认多个文件
+	InitialDirPath: "./",       //初始目录
+	Filter:         "Word文档 (*.doc;*.docx)|*.doc;*.docx|Excel表格 (*.xls;*.xlsx)|*.xls;*.xlsx|PPT演示文稿 (*.ppt;*.pptx)|*.ppt;*.pptx",   //过滤器
+	FilterIndex:    2,          //默认过滤器，是一般意义上的第几项。如此处第2项是Excel，而不是PPT
+	ShowReadOnlyCB: false,      //是否添加只读CheckBox
+}
+```
+
+### 打开
+
+```go
+fd.ShowOpen(w)         //打开文件
+fd.ShowOpenMultiple(w) //打开多个文件
+fd.ShowBrowseFolder(w) //打开文件夹
+fd.ShowSave(w)         //打开保存
+```
+
+### 结果
+
+```go
+fd.FilePath//结果文件名
+fd.FilePaths//多个结果文件名，只有ShowOpenMultiple时会使用
+fd.FilterIndex//使用的过滤器项数，是一般意义上的第几项。
+fd.Flags//使用的过滤器中的后缀名项数，是一般意义上的第几项。如docx是第二项。
+```
+
+### 过滤器
+
+*e.g.*
+
+```text
+Word文档 (*.doc;*.docx)|*.doc;*.docx|Excel表格 (*.xls;*.xlsx)|*.xls;*.xlsx|PPT演示文稿 (*.ppt;*.pptx)|*.ppt;*.pptx
+```
+
+## 菜单
+
+```go
+MainWindow{
+	AssignTo: &w,
+	Title:    "test",
+	MinSize:  Size{600, 400},
+	Layout:   VBox{},
+	Children: []Widget{},
+	MenuItems: []MenuItem{
+		Menu{//<--- 主菜单1
+			//···
+			Items: []MenuItem{
+				Action{//<--- 按键1
+					//···
+				},
+				Separator{},//<--- 分隔符1
+				Menu{//<--- 次级菜单1
+					//···
+					Items: []MenuItem{
+						//···
+					},
+				},
+			},
+		},
+		//···
+	},
+}
+```
+
+### 更改
+
+```go
+walk.Menu{}.Actions().Add()
+walk.Menu{}.Actions().AddMenu()
+//···
+```
+
+## 托盘
+
+```go
+//https://www.jianshu.com/p/bbe8ba2e925a
+package main
+
+import (
+	"github.com/lxn/walk"
+	"log"
+)
+func main()  {
+	mw, err := walk.NewMainWindow()
+	if err != nil {
+		log.Fatal(err)
+	}
+	//托盘图标文件
+	icon, err := walk.Resources.Icon("./icon.ico")
+	if err != nil {
+		log.Fatal(err)
+	}
+	ni, err := walk.NewNotifyIcon(mw)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer ni.Dispose()
+	if err := ni.SetIcon(icon); err != nil {
+		log.Fatal(err)
+	}
+	if err := ni.SetToolTip("鼠标在icon上悬浮的信息."); err != nil {
+		log.Fatal(err)
+	}
+	ni.MouseDown().Attach(func(x, y int, button walk.MouseButton) {
+		if button != walk.LeftButton {
+			return
+		}
+		if err := ni.ShowCustom("Walk 任务栏通知标题","walk 任务栏通知内容",icon); err != nil {
+			//ni.ShowCustom()
+			//ni.ShowInfo()
+			//ni.ShowMessage()
+			//ni.ShowWarning()
+			//ni.ShowError()
+			log.Fatal(err)
+		}
+	})
+	exitAction := walk.NewAction()
+	if err := exitAction.SetText("右键icon的菜单按钮"); err != nil {
+		log.Fatal(err)
+	}
+	//Exit 实现的功能
+	exitAction.Triggered().Attach(func() { walk.App().Exit(0) })
+	if err := ni.ContextMenu().Actions().Add(exitAction); err != nil {
+		log.Fatal(err)
+	}
+	if err := ni.SetVisible(true); err != nil {
+		log.Fatal(err)
+	}
+	if err := ni.ShowInfo("Walk NotifyIcon Example", "Click the icon to show again."); err != nil {
+		log.Fatal(err)
+	}
+	mw.Run()
+}
+
+```
+
+
+
+## 官方示例
 
 ```text
 actions 下拉菜单
@@ -167,7 +390,7 @@ databinding 数据绑定
 drawing 画笔
 dropfiles 拖动打开文件
 externalwidgets 拓展组件
-filebrowser 文件浏览器
+filebrowser 树状列表/【应用】文件浏览器
 gradientcomposite 渐变
 imageicon 图片动态生成
 imageview 图片显示方式
@@ -188,7 +411,7 @@ webview 【应用】IE浏览器
 webview_events 【应用】浏览器事件
 ```
 
-### progress indicator
+## progress indicator
 
 #### 状态
 
@@ -283,13 +506,17 @@ func main() {
 
 ```
 
-### Resource
+## Resource
 
 ```go
 walk.Resources.SetRootDirPath("../img")
+
+walk.Resources.Image()
+walk.Resources.Icon()
+walk.Resources.BitmapForDPI()
 ```
 
-### Image
+## Image
 
 #### 显示方式
 
@@ -304,9 +531,9 @@ ImageViewModeStretch
 
 ![图片显示方式](D:\BaiduSyncdisk\code\note\go\lxn-walk\图片显示方式.png)
 
-### MsgBox
+## MsgBox
 
-#### MsgBoxStyle
+### MsgBoxStyle
 
 ```text
 MsgBoxOK
@@ -341,7 +568,7 @@ MsgBoxRTLReading
 MsgBoxServiceNotification
 ```
 
-#### DlgCmd
+### DlgCmd
 
 ```text
 DlgCmdNone
