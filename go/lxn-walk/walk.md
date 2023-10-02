@@ -32,8 +32,6 @@ window.Create()
 w.Run()
 ```
 
-
-
 ### Set
 
 ```go
@@ -214,8 +212,8 @@ TextLabel
 ToolBar
 ToolButton
 TreeView
-VSeparator//纵向分割（横线）
-HSeparator//横向分割（竖线）
+VSeparator//纵向分割线（横线）
+HSeparator//横向分割线（竖线）
 VSpacer//纵向填充
 HSpacer//横向填充
 ```
@@ -231,6 +229,24 @@ Font{
 	Underline: false,//下划线
 	StrikeOut: false,//删除线
 }
+```
+
+## 布局
+
+```go
+VBox{}
+HBox{}
+Grid{}
+Flow{}
+```
+
+### 属性
+
+```text
+Margins 边框宽度
+MarginsZero 无边框宽度
+Spacing 间隔宽度
+SpacingZero 无间隔宽度
 ```
 
 
@@ -315,6 +331,334 @@ walk.Menu{}.Actions().AddMenu()
 //···
 ```
 
+## 画笔
+
+> Bitmap、Canvas、Font需要通过Dispose()释放资源！
+
+### Bitmap
+
+#### 新建
+
+```go
+walk.NewBitmapForDPI()
+walk.NewBitmapFromFileForDPI()
+walk.NewBitmapFromIconForDPI()
+walk.NewBitmapFromImageForDPI()
+walk.NewBitmapFromImageWithSize()
+walk.NewBitmapFromResourceForDPI()
+```
+
+#### 方法
+
+```go
+bmp.Size()//大小
+bmp.Dispose()//释放资源
+bmp.ToImage()//转换为图片
+```
+
+### Canvas
+
+#### 新建
+
+```go
+walk.NewCanvasFromImage(bmp)
+```
+
+#### 其他方法
+
+```go
+canvas.BoundsPixels()//区域
+
+canvas.MeasureTextPixels()//测量文本大小。
+canvas.MeasureAndModifyTextPixels()//测量文本大小，如果它不适合指定的边界，也支持修改文本。
+```
+
+#### 绘制
+
+```go
+canvas.DrawLinePixels()//绘制线段
+canvas.DrawPolylinePixels()//绘制折线段
+canvas.DrawRectanglePixels()//绘制矩形
+canvas.DrawTextPixels()//绘制文字
+canvas.DrawImagePixels()//绘制图像
+canvas.DrawImageStretchedPixels()//拉伸绘制图像
+canvas.DrawBitmapWithOpacityPixels()//绘制具有不透明度的位图
+canvas.DrawBitmapPart()//绘制位图的一部分
+canvas.DrawEllipsePixels()//绘制椭圆
+canvas.DrawRoundedRectanglePixels()//绘制圆角矩形
+```
+
+#### 填充
+
+```go
+canvas.FillRectanglePixels()//填充矩形
+canvas.FillEllipsePixels()//填充椭圆
+canvas.FillRoundedRectanglePixels()//填充圆角矩形
+canvas.GradientFillRectanglePixels()//填充渐变矩形
+```
+
+### 笔
+
+#### 新建
+
+```go
+walk.NewCosmeticPen()//单像素笔
+walk.NewGeometricPen()//画刷笔
+```
+
+### 画刷
+
+#### 新建
+
+```go
+walk.NewSolidColorBrush()//纯色画刷
+walk.NewHatchBrush()//阴影画刷
+walk.NewBitmapBrush()//位图画刷
+walk.NewGradientBrush()//渐变画刷
+walk.NewHorizontalGradientBrush()//横渐变画刷
+walk.NewVerticalGradientBrush()//纵渐变画刷
+walk.NewSystemColorBrush()//系统色画刷
+```
+
+### 字体
+
+#### 新建
+
+```go
+walk.NewFont()
+```
+
+### 常量
+
+##### 笔线型
+
+```go
+walk.PenSolid//实心线
+walk.PenDash//短横线
+walk.PenDot//点线
+walk.PenDashDot//点横线
+walk.PenDashDotDot//点点横线
+walk.PenNull
+walk.PenInsideFrame
+walk.PenUserStyle
+walk.PenAlternate
+```
+
+##### 画刷阴影
+
+```go
+walk.HatchCross//方格阴影
+walk.HatchDiagonalCross//斜方格阴影
+walk.HatchForwardDiagonal//右下斜线阴影
+walk.HatchBackwardDiagonal//左下斜线阴影
+walk.HatchVertical//纵向阴影
+walk.HatchHorizontal//横向阴影
+```
+
+##### 字体样式
+
+```go
+walk.FontBold//粗体
+walk.FontItalic//斜体
+walk.FontUnderline//下划线
+walk.FontStrikeOut//删除线
+```
+
+##### 字体排列
+
+```go
+walk.TextTop//居上
+walk.TextLeft//居左
+walk.TextCenter//水平居中
+walk.TextRight//居右
+walk.TextVCenter//垂直居中
+walk.TextBottom//居下
+walk.TextWordbreak//单词边界换行
+walk.TextSingleLine//单行
+walk.TextExpandTabs//文本展开选项卡
+walk.TextTabstop
+walk.TextNoClip
+walk.TextExternalLeading
+walk.TextCalcRect
+walk.TextNoPrefix
+walk.TextInternal
+walk.TextEditControl
+walk.TextPathEllipsis
+walk.TextEndEllipsis
+walk.TextModifyString
+walk.TextRTLReading
+walk.TextWordEllipsis
+walk.TextNoFullWidthCharBreak
+walk.TextHidePrefix
+walk.TextPrefixOnly
+```
+
+### 示例
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/lxn/walk"
+	. "github.com/lxn/walk/declarative"
+	"log"
+	"math"
+)
+
+var PaintWidget *walk.CustomWidget
+
+func main() {
+	w, err := walk.NewMainWindow()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	window := MainWindow{
+		AssignTo: &w,
+		Title:    "Walk Drawing Example",
+		MinSize:  Size{320, 240},
+		Size:     Size{800, 600},
+		Layout:   VBox{MarginsZero: true},
+		Children: []Widget{
+			CustomWidget{
+				AssignTo: &PaintWidget,
+				ClearsBackground: true,
+				InvalidatesOnResize: true,
+				Paint:Draw,
+			},
+		},
+	}
+	_,err=window.Run()
+	if err!=nil{
+		log.Fatalln(err)
+	}
+}
+
+func CreateBitmap() (*walk.Bitmap,error) {
+	//创建区域
+	bounds:=walk.Rectangle{
+		Width: 200,
+		Height: 200,
+	}
+	bmp,err:=walk.NewBitmapForDPI(bounds.Size(),96)
+	if err != nil {
+		return nil, err
+	}
+	succeeded := false
+	defer func() {
+		if !succeeded {
+			bmp.Dispose()//不成功则释放资源
+		}
+	}()
+	
+	canvas, err := walk.NewCanvasFromImage(bmp)//创建映射到bmp的画布
+	if err != nil {
+		return nil, err
+	}
+	defer canvas.Dispose()
+	
+	brushBmp, err := walk.NewBitmapFromFileForDPI("./img/plus.png",96)//从图片创建位图
+	if err != nil {
+		return nil, err
+	}
+	defer brushBmp.Dispose()
+	
+	brush, err := walk.NewBitmapBrush(brushBmp)//从位图创建笔刷
+	if err != nil {
+		return nil, err
+	}
+	defer brush.Dispose()
+	
+	if err := canvas.FillRectangle(brush, bounds); err != nil {//填充矩形
+		return nil, err
+	}
+	
+	font, err := walk.NewFont("Times New Roman", 40, walk.FontBold|walk.FontItalic)//创建字体配置
+	if err != nil {
+		return nil, err
+	}
+	defer font.Dispose()
+	
+	if err := canvas.DrawTextPixels("Walk Drawing Example", font, walk.RGB(0, 0, 0), bounds, walk.TextWordbreak); err != nil {
+		return nil, err
+	}
+	
+	succeeded = true
+	
+	return bmp,nil
+}
+
+func Draw(canvas *walk.Canvas, updateBounds walk.Rectangle) error {
+	bmp, err := CreateBitmap()//创建位图
+	if err != nil {
+		return err
+	}
+	defer bmp.Dispose()
+	
+	bounds := PaintWidget.ClientBounds()
+	
+	rectPen, err := walk.NewCosmeticPen(walk.PenSolid, walk.RGB(255, 0, 0))//创建画笔样式
+	if err != nil {
+		return err
+	}
+	defer rectPen.Dispose()
+	
+	if err := canvas.DrawRectanglePixels(rectPen, bounds); err != nil {
+		return err
+	}//绘制矩形
+	
+	ellipseBrush, err := walk.NewHatchBrush(walk.RGB(0, 255, 0), walk.HatchHorizontal)//创建阴影画刷
+	if err != nil {
+		return err
+	}
+	defer ellipseBrush.Dispose()
+	
+	if err := canvas.FillEllipsePixels(ellipseBrush, bounds); err != nil {
+		return err
+	}//填充椭圆
+	
+	linesBrush, err := walk.NewSolidColorBrush(walk.RGB(0, 0, 255))//创建颜色画刷
+	if err != nil {
+		return err
+	}
+	defer linesBrush.Dispose()
+	
+	linesPen, err := walk.NewGeometricPen(walk.PenDash, 8, linesBrush)//新建几何画笔
+	if err != nil {
+		return err
+	}
+	defer linesPen.Dispose()
+	
+	if err := canvas.DrawLinePixels(linesPen, walk.Point{bounds.X, bounds.Y}, walk.Point{bounds.Width, bounds.Height}); err != nil {//绘制线段
+		return err
+	}
+	if err := canvas.DrawLinePixels(linesPen, walk.Point{bounds.X, bounds.Height}, walk.Point{bounds.Width, bounds.Y}); err != nil {//绘制线段
+		return err
+	}
+	
+	points := make([]walk.Point, 10)
+	dx := bounds.Width / (len(points) - 1)
+	for i := range points {
+		points[i].X = i * dx
+		points[i].Y = int(float64(bounds.Height) / math.Pow(float64(bounds.Width/2), 2) * math.Pow(float64(i*dx-bounds.Width/2), 2))
+	}
+	if err := canvas.DrawPolylinePixels(linesPen, points); err != nil {
+		return err
+	}//绘制折线
+	
+	bmpSize := bmp.Size()
+	if err := canvas.DrawImagePixels(bmp, walk.Point{(bounds.Width - bmpSize.Width) / 2, (bounds.Height - bmpSize.Height) / 2}); err != nil {//绘制位图
+		return err
+	}
+	
+	return nil
+}
+
+```
+
+
+
 ## 托盘
 
 ```go
@@ -380,36 +724,6 @@ func main()  {
 ```
 
 
-
-## 官方示例
-
-```text
-actions 下拉菜单
-clipboard 剪切板
-databinding 数据绑定
-drawing 画笔
-dropfiles 拖动打开文件
-externalwidgets 拓展组件
-filebrowser 树状列表/【应用】文件浏览器
-gradientcomposite 渐变
-imageicon 图片动态生成
-imageview 图片显示方式
-imageviewer 【应用】图片查看器
-linklabel 链接状文本
-listbox 列表 【应用】环境变量查看器
-listbox_ownerdrawing 双栏列表框
-logview 日志
-multiplepags 多页
-notifyicon 消息提醒
-progressindicator 图标进度
-radiobutton 多选框
-settings 设置表（可排序文字表格）
-slider 滑块
-statusbar 状态栏（窗口下部显示状态区）
-tableview 表格
-webview 【应用】IE浏览器
-webview_events 【应用】浏览器事件
-```
 
 ## progress indicator
 
@@ -506,6 +820,8 @@ func main() {
 
 ```
 
+
+
 ## Resource
 
 ```go
@@ -515,6 +831,8 @@ walk.Resources.Image()
 walk.Resources.Icon()
 walk.Resources.BitmapForDPI()
 ```
+
+
 
 ## Image
 
@@ -530,6 +848,59 @@ ImageViewModeStretch
 ```
 
 ![图片显示方式](D:\BaiduSyncdisk\code\note\go\lxn-walk\图片显示方式.png)
+
+### 示例：动态图片生成
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/lxn/walk"
+	. "github.com/lxn/walk/declarative"
+	"image"
+	"image/color"
+)
+
+func main() {
+	im := image.NewRGBA(image.Rect(0, 0, 16, 16))
+	for i := 0; i < 16; i++ {
+		im.Set(i, i, color.Black)
+	}
+	for i := 0; i < 16; i++ {
+		im.Set(15-i, i, color.Black)
+	}
+	w, _ := walk.NewMainWindow()
+	i, err := walk.NewIconFromImageForDPI(im, 96)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	wi := MainWindow{
+		AssignTo: &w,
+		Layout:   HBox{},
+		Children: []Widget{},
+	}
+	wi.Create()
+	w.SetIcon(i)
+	w.Run()
+}
+
+```
+
+
+
+## 剪切板
+
+```go
+walk.Clipboard().Text()
+walk.Clipboard().SetText()
+walk.Clipboard().Clear()//清除剪贴板的内容
+walk.Clipboard().ContainsText()//返回剪贴板当前是否包含文本数据
+walk.Clipboard().ContentsChanged()//返回一个事件，您可以附加该事件来处理剪贴板内容更改
+```
+
+
 
 ## MsgBox
 
@@ -588,43 +959,32 @@ DlgCmdTimeout
 
 
 
-## Example
+## 官方示例
 
-### 动态图片生成
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/lxn/walk"
-	. "github.com/lxn/walk/declarative"
-	"image"
-	"image/color"
-)
-
-func main() {
-	im := image.NewRGBA(image.Rect(0, 0, 16, 16))
-	for i := 0; i < 16; i++ {
-		im.Set(i, i, color.Black)
-	}
-	for i := 0; i < 16; i++ {
-		im.Set(15-i, i, color.Black)
-	}
-	w, _ := walk.NewMainWindow()
-	i, err := walk.NewIconFromImageForDPI(im, 96)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	wi := MainWindow{
-		AssignTo: &w,
-		Layout:   HBox{},
-		Children: []Widget{},
-	}
-	wi.Create()
-	w.SetIcon(i)
-	w.Run()
-}
-
+```text
+actions 下拉菜单
+clipboard 剪切板
+databinding 数据绑定
+drawing 画笔
+dropfiles 拖动打开文件
+externalwidgets 拓展组件
+filebrowser 树状列表/【应用】文件浏览器
+gradientcomposite 渐变
+imageicon 图片动态生成
+imageview 图片显示方式
+imageviewer 【应用】图片查看器
+linklabel 链接状文本
+listbox 列表 【应用】环境变量查看器
+listbox_ownerdrawing 双栏列表框
+logview 日志
+multiplepags 多页
+notifyicon 消息提醒
+progressindicator 图标进度
+radiobutton 多选框
+settings 设置表（可排序文字表格）
+slider 滑块
+statusbar 状态栏（窗口下部显示状态区）
+tableview 表格
+webview 【应用】IE浏览器
+webview_events 【应用】浏览器事件
 ```
