@@ -32,7 +32,16 @@ window.Create()
 w.Run()
 ```
 
-### Set
+#### 方法
+
+```go
+w.Screenshot()//截屏
+w.Synchronize(func() {//加入消息队列
+    //···
+})
+```
+
+#### Set
 
 ```go
 //设置坐标
@@ -72,6 +81,8 @@ w.SetEnabled(false)
 w.SetCursor()
 //设置字体
 w.SetFont()
+//设置背景
+w.SetBackground()
 //不允许窗口大小调整
 win.SetWindowLong(w.Handle(), win.GWL_STYLE,
 	win.GetWindowLong(w.Handle(), win.GWL_STYLE)&^win.WS_MAXIMIZEBOX&^win.WS_THICKFRAME)
@@ -94,7 +105,7 @@ OnSizeChanged      walk.EventHandler
 
 ## win包
 
-```go
+​```go
 win.SetWindowLong(w.Handle(), win.GWL_STYLE,
 	win.GetWindowLong(w.Handle(), win.GWL_STYLE)&^win.WS_MAXIMIZEBOX)//禁用最大化按钮
 //···
@@ -499,7 +510,6 @@ walk.TextPrefixOnly
 package main
 
 import (
-	"fmt"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"log"
@@ -511,8 +521,7 @@ var PaintWidget *walk.CustomWidget
 func main() {
 	w, err := walk.NewMainWindow()
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatalln(err)
 	}
 	window := MainWindow{
 		AssignTo: &w,
@@ -529,10 +538,11 @@ func main() {
 			},
 		},
 	}
-	_,err=window.Run()
+	err=window.Create()
 	if err!=nil{
 		log.Fatalln(err)
 	}
+	w.Run()
 }
 
 func CreateBitmap() (*walk.Bitmap,error) {
@@ -897,7 +907,7 @@ walk.Clipboard().Text()
 walk.Clipboard().SetText()
 walk.Clipboard().Clear()//清除剪贴板的内容
 walk.Clipboard().ContainsText()//返回剪贴板当前是否包含文本数据
-walk.Clipboard().ContentsChanged()//返回一个事件，您可以附加该事件来处理剪贴板内容更改
+walk.Clipboard().ContentsChanged()//返回一个事件，可以附加该事件来处理剪贴板内容更改
 ```
 
 
@@ -952,9 +962,57 @@ DlgCmdYes
 DlgCmdNo
 DlgCmdClose
 DlgCmdHelp
-DlgCmdTryAgai
-DlgCmdContinu
+DlgCmdTryAgain
+DlgCmdContinue
 DlgCmdTimeout
+```
+
+
+
+## 渐变
+
+```go
+GradientBrush{
+	Vertexes: []walk.GradientVertex{
+		{X: 0, Y: 0, Color: walk.RGB(255, 255, 127)},     //色点0
+		{X: 1, Y: 0, Color: walk.RGB(127, 191, 255)},     //色点1
+		{X: 0.5, Y: 0.5, Color: walk.RGB(255, 255, 255)}, //色点2
+		{X: 1, Y: 1, Color: walk.RGB(127, 255, 127)},     //色点3
+		{X: 0, Y: 1, Color: walk.RGB(255, 127, 127)},     //色点4
+	},
+	Triangles: []walk.GradientTriangle{
+		{0, 1, 2}, //色点0、1、2构成渐变三角形
+		{1, 3, 2}, //色点1、3、2构成渐变三角形
+		{3, 4, 2}, //色点3、4、2构成渐变三角形
+		{4, 0, 2}, //色点4、0、2构成渐变三角形
+	},
+}
+```
+
+
+
+## 添加组件
+
+```go
+//法一：
+w.Synchronize(func() {
+	if err=(Label{
+		Text: "New",
+	}).Create(NewBuilder(w));err!=nil{
+		log.Fatalln(err)
+	}
+})
+//法二：
+w.Synchronize(func() {
+	l, err := walk.NewLabel(w)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	err = l.SetText("New")
+	if err != nil {
+		log.Fatalln(err)
+	}
+})
 ```
 
 
