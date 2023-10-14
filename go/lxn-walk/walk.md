@@ -11,11 +11,7 @@ rsrc -manifest xxx.exe.manifest -o rsrc.syso
 
 ## window
 ```go
-w, err := walk.NewMainWindow()
-if err != nil {
-	fmt.Println(err)
-	return
-}
+var w *walk.MainWindow
 
 window := MainWindow{
 	AssignTo: &w,
@@ -105,7 +101,7 @@ OnSizeChanged      walk.EventHandler
 
 ## win包
 
-​```go
+```go
 win.SetWindowLong(w.Handle(), win.GWL_STYLE,
 	win.GetWindowLong(w.Handle(), win.GWL_STYLE)&^win.WS_MAXIMIZEBOX)//禁用最大化按钮
 //···
@@ -134,7 +130,178 @@ walk.DriveNames()
 
 
 
+## 数据绑定
+
+### Bind
+
+```go
+Bind(表达式，验证器)
+```
+
+### 验证器
+
+```go
+Range//是否在范围内
+Regexp//是否匹配正则
+SelRequired//是否已经选择（用于Combobox等）
+
+```
+
+### 运算符
+
+```text
+拼接：'Hello' + 'World'
+等于：'Hello' == 'World'
+不等于：'Hello' != 'World'
+否定：!Hello.Visible
+与：Hello.Visible && World.Visible
+或：Hello.Visible || World.Visible
+三元运算符：Name == '' ? 'Hello' : 'World'
+```
+
+### 自定义函数
+
+```go
+MainWindow{
+	//···
+	Children: []Widget{
+		Label{
+			Text: Bind("join(Hello.Value, World.Value)"),
+		},
+	},
+	Functions: map[string]func(args ...interface{}) (interface{}, error){
+		"join": func(args ...interface{}) (interface{}, error) {
+			//数字：float64
+			//字符串：string
+			//布尔值：bool
+			return args[0].(string) + args[1].(string), nil
+		},
+	},
+}
+
+```
+
+### MutableCondition
+
+```go
+var OK = walk.NewMutableCondition()
+MustRegisterCondition("IsOK", OK)
+OK.Satisfied()
+OK.SetSatisfied(!OK.Satisfied())
+```
+
+### 表单
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/lxn/walk"
+	. "github.com/lxn/walk/declarative"
+	"log"
+)
+
+func main() {
+	var db *walk.DataBinder
+	var data struct {
+		A string
+		B string
+	}
+	MainWindow{
+		//···
+		DataBinder: DataBinder{
+			AssignTo: &db,
+			//内部：A
+			//外部：data.A
+			Name:           "data", //外部名称
+			DataSource:     &data,   //数据源（指针）
+			ErrorPresenter: ToolTipErrorPresenter{},
+		},
+		Layout: Grid{Columns: 2},
+		Children: []Widget{
+			Label{
+				Text: "A",
+			},
+			LineEdit{
+				Text: Bind("A"),
+			},
+			Label{
+				Text: "B",
+			},
+			LineEdit{
+				Text: Bind("B"),
+			},
+			PushButton{
+				Text: "Submit",
+				OnClicked: func() {
+					err:=db.Submit()//提交
+					if err!=nil{
+						log.Fatalln(err)
+					}
+					fmt.Println(data)
+				},
+				ColumnSpan: 2,
+			},
+		},
+	}.Run()
+}
+
+```
+
+
+
 ## 组件
+
+### 基本属性
+
+```go
+// Window
+Background         Brush//背景
+Enabled            Property//是否可用
+Font               Font//字体
+MaxSize            Size//最大尺寸
+MinSize            Size//最小尺寸
+Name               string//名称（数据绑定的符号）
+OnBoundsChanged    walk.EventHandler//事件：边框改变
+OnKeyDown          walk.KeyEventHandler//事件：键盘按下按键
+OnKeyPress         walk.KeyEventHandler//事件：键盘按键
+OnKeyUp            walk.KeyEventHandler//事件：键盘松开按键
+OnMouseDown        walk.MouseEventHandler//事件：鼠标按下
+OnMouseMove        walk.MouseEventHandler//事件：鼠标移动
+OnMouseUp          walk.MouseEventHandler//事件：鼠标松开
+OnSizeChanged      walk.EventHandler//事件：大小改变
+RightToLeftReading bool//文字方向
+ToolTipText        Property//鼠标悬浮时的提示文字
+Visible            Property//是否显示
+
+// Widget
+Alignment          Alignment2D//对齐方式
+AlwaysConsumeSpace bool//总是占用空间
+Column             int//列号
+ColumnSpan         int//占用的列数
+GraphicsEffects    []walk.WidgetGraphicsEffect//图形效果
+Row                int//行号
+RowSpan            int//占用的行数
+StretchFactor      int//拉伸系数
+```
+
+#### 常量
+
+##### 对齐方式
+
+```go
+walk.AlignHVDefault
+walk.AlignHNearVNear
+walk.AlignHCenterVNear
+walk.AlignHFarVNear
+walk.AlignHNearVCenter
+walk.AlignHCenterVCenter
+walk.AlignHFarVCenter
+walk.AlignHNearVFar
+walk.AlignHCenterVFar
+walk.AlignHFarVFar
+```
 
 ### PushButton
 
@@ -170,7 +337,7 @@ OnClicked walk.EventHandler
 
 #### 属性
 
-```text
+```go
 MaxValue//最大值
 MinValue//最小值
 Value//值
@@ -190,18 +357,57 @@ CurrentIndex//默认选项的索引
 Editable//是否可编辑
 ```
 
+### NumberEdit
+
+```go
+Value//值
+MaxValue//最大值
+MinValue//最小值
+Suffix//数字后显示的字符串
+Decimals//小数位数
+SpinButtonsVisible//是否显示增减按钮
+Increment//按下增减按钮增减的数量
+ReadOnly//是否只读
+```
+
+### VSpacer、HSpacer
+
+```go
+GreedyLocallyOnly//是否仅本地贪婪（是否只在MaxSize、MinSize规定区域尽可能最大）
+```
+
 ### 容器
 
 ```go
 Composite//普通容器
 GradientComposite
 GroupBox//分组（有边框线）
-RadioButtonGroupBox
+RadioButtonGroupBox//单选框组合
 HSplitter//横向分割（可鼠标调整宽度）
 VSplitter//纵向分割（可鼠标调整宽度）
 ScrollView//带进度条
 TabPage
 ```
+
+#### 更改/查看元素
+
+```go
+c.Children().Add()
+c.Children().Insert()
+c.Children().Remove()
+c.Children().RemoveAt()
+c.Children().Clear()
+
+c.Children().At()
+c.Children().Index()
+c.Children().Len()
+c.Children().Contains()
+```
+
+> 注意：更改时要释放资源：
+> var w = c.Children().At(0)
+> c.Children().RemoveAt(0)
+> w.Dispose()
 
 ### 常用组件
 
@@ -439,6 +645,12 @@ walk.NewSystemColorBrush()//系统色画刷
 walk.NewFont()
 ```
 
+### 颜色
+
+```go
+walk.RGB()
+```
+
 ### 常量
 
 ##### 笔线型
@@ -669,6 +881,18 @@ func Draw(canvas *walk.Canvas, updateBounds walk.Rectangle) error {
 
 
 
+## 阴影效果
+
+```go
+walk.AppendToWalkInit(func() {
+	walk.FocusEffect, _ = walk.NewBorderGlowEffect(walk.RGB(0, 63, 255))//得焦：周围蓝色阴影
+	walk.InteractionEffect, _ = walk.NewDropShadowEffect(walk.RGB(63, 63, 63))//未得焦：下方灰色阴影
+	walk.ValidationErrorEffect, _ = walk.NewBorderGlowEffect(walk.RGB(255, 0, 0))//表单验证不通过：周围红色阴影
+})
+```
+
+![阴影效果](./阴影效果.png)
+
 ## 托盘
 
 ```go
@@ -846,7 +1070,7 @@ walk.Resources.BitmapForDPI()
 
 ## Image
 
-#### 显示方式
+### 显示方式
 
 ```go
 ImageViewModeIdeal 
@@ -857,7 +1081,7 @@ ImageViewModeZoom
 ImageViewModeStretch 
 ```
 
-![图片显示方式](D:\BaiduSyncdisk\code\note\go\lxn-walk\图片显示方式.png)
+![图片显示方式](.\图片显示方式.png)
 
 ### 示例：动态图片生成
 
@@ -917,36 +1141,36 @@ walk.Clipboard().ContentsChanged()//返回一个事件，可以附加该事件�
 ### MsgBoxStyle
 
 ```text
-MsgBoxOK
-MsgBoxOKCancel
-MsgBoxAbortRetryIgnore
-MsgBoxYesNoCancel
-MsgBoxYesNo
-MsgBoxRetryCancel
-MsgBoxCancelTryContinue
-MsgBoxIconHand
-MsgBoxIconQuestion
-MsgBoxIconExclamation
-MsgBoxIconAsterisk
-MsgBoxUserIcon
-MsgBoxIconWarning
-MsgBoxIconError
-MsgBoxIconInformation
-MsgBoxIconStop
-MsgBoxDefButton1
-MsgBoxDefButton2
-MsgBoxDefButton3
-MsgBoxDefButton4
-MsgBoxApplModal
-MsgBoxSystemModal
-MsgBoxTaskModal
-MsgBoxHelp
-MsgBoxSetForeground
-MsgBoxDefaultDesktopOnly
-MsgBoxTopMost
-MsgBoxRight
-MsgBoxRTLReading
-MsgBoxServiceNotification
+MsgBoxOK//确定
+MsgBoxOKCancel//确定、取消
+MsgBoxAbortRetryIgnore//中止、重试、忽略
+MsgBoxYesNoCancel//是、否、取消
+MsgBoxYesNo//是、否
+MsgBoxRetryCancel//重试、取消
+MsgBoxCancelTryContinue//取消、重试、继续
+MsgBoxIconHand//红底圆叉号
+MsgBoxIconQuestion//蓝底圆问号
+MsgBoxIconExclamation//黄底三角形感叹号
+MsgBoxIconAsterisk//蓝底圆字母i
+MsgBoxUserIcon//
+MsgBoxIconWarning//黄底三角形感叹号
+MsgBoxIconError//红底圆叉号
+MsgBoxIconInformation//蓝底圆字母i
+MsgBoxIconStop//红底圆叉号
+MsgBoxDefButton1//默认选中按钮1
+MsgBoxDefButton2//默认选中按钮2
+MsgBoxDefButton3//默认选中按钮3
+MsgBoxDefButton4//默认选中按钮4
+MsgBoxApplModal//
+MsgBoxSystemModal//
+MsgBoxTaskModal//
+MsgBoxHelp//确定、帮助
+MsgBoxSetForeground//
+MsgBoxDefaultDesktopOnly//
+MsgBoxTopMost//完全置顶
+MsgBoxRight//消息靠右
+MsgBoxRTLReading//标题靠右
+MsgBoxServiceNotification//
 ```
 
 ### DlgCmd
@@ -1002,6 +1226,7 @@ w.Synchronize(func() {
 		log.Fatalln(err)
 	}
 })
+
 //法二：
 w.Synchronize(func() {
 	l, err := walk.NewLabel(w)

@@ -14,12 +14,11 @@ func main() {
 	//or
 	cmd = &exec.Cmd{
 		Path: "bash",
-		Args: []string{"-c"},
+		Args: []string{"bash", "-c"},//注意，应该把path内容放在切片第一位
 		Dir:  "/usr/bin",
 		Env: []string{
 			"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
 		},
-		
 	}
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
