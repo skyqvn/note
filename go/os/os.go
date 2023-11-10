@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -157,13 +156,13 @@ func main() {
 	}
 	fmt.Println(byteWriter)
 	
-	data, err := ioutil.ReadAll(file)
+	data, err := io.ReadAll(file)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(data)
 	
-	data, err = ioutil.ReadFile("test.txt")
+	data, err = os.ReadFile("test.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -253,11 +252,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	// 用来计算offset的初始位置
+	// whence的值，用来计算offset的初始位置
 	// 0 = 文件开始位置
 	// 1 = 当前位置
 	// 2 = 文件结尾处
-	position, err := file.Seek(1, 5)
+	position, err := file.Seek(8, 1)
 	if err != nil {
 		panic(err)
 	}

@@ -71,6 +71,8 @@ w.SetIcon(i)
 w.SetFullscreen(true)
 //得到焦点
 w.SetFocus()
+//置顶
+w.BringToTop()
 //设置是否禁用
 w.SetEnabled(false)
 //设置鼠标参数
@@ -305,6 +307,15 @@ walk.AlignHFarVFar
 
 ### PushButton
 
+#### 属性
+
+```go
+CueBanner//背景提示文字
+MaxLength//最长字符
+PasswordMode//密码模式
+ReadOnly//只读
+```
+
 #### 事件
 
 ```text
@@ -424,9 +435,10 @@ ListBox
 NumberEdit
 NumberLabel
 ProgressBar
+StatusBarItem//状态栏
 TextEdit
 TextLabel
-ToolBar
+ToolBar//工具栏
 ToolButton
 TreeView
 VSeparator//纵向分割线（横线）
@@ -665,6 +677,14 @@ walk.PenNull
 walk.PenInsideFrame
 walk.PenUserStyle
 walk.PenAlternate
+
+walk.PenCapRound//圆头笔
+walk.PenCapSquare//方头笔
+walk.PenCapFlat//扁平头笔
+
+PenJoinBevel
+PenJoinMiter
+PenJoinRound
 ```
 
 ##### 画刷阴影
@@ -881,7 +901,9 @@ func Draw(canvas *walk.Canvas, updateBounds walk.Rectangle) error {
 
 
 
-## 阴影效果
+## 阴影效果与错误演示
+
+### 阴影效果
 
 ```go
 walk.AppendToWalkInit(func() {
@@ -891,7 +913,21 @@ walk.AppendToWalkInit(func() {
 })
 ```
 
-![阴影效果](./阴影效果.png)
+
+
+### 错误演示
+
+```go
+e, err := walk.NewToolTipErrorPresenter()
+	if err != nil {
+		panic(err)
+	}
+	e.PresentError(errors.New("error"), w)
+```
+
+![阴影效果与错误演示](./阴影效果与错误演示.png)
+
+
 
 ## 托盘
 
