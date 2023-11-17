@@ -812,7 +812,7 @@ func CreateBitmap() (*walk.Bitmap,error) {
 	}
 	defer brush.Dispose()
 	
-	if err := canvas.FillRectangle(brush, bounds); err != nil {//填充矩形
+	if err := canvas.FillRectanglePixels(brush, bounds); err != nil {//填充矩形
 		return nil, err
 	}
 	
@@ -838,7 +838,7 @@ func Draw(canvas *walk.Canvas, updateBounds walk.Rectangle) error {
 	}
 	defer bmp.Dispose()
 	
-	bounds := PaintWidget.ClientBounds()
+	bounds := updateBounds
 	
 	rectPen, err := walk.NewCosmeticPen(walk.PenSolid, walk.RGB(255, 0, 0))//创建画笔样式
 	if err != nil {
@@ -919,10 +919,10 @@ walk.AppendToWalkInit(func() {
 
 ```go
 e, err := walk.NewToolTipErrorPresenter()
-	if err != nil {
-		panic(err)
-	}
-	e.PresentError(errors.New("error"), w)
+if err != nil {
+	panic(err)
+}
+e.PresentError(errors.New("error"), w)
 ```
 
 ![阴影效果与错误演示](./阴影效果与错误演示.png)
