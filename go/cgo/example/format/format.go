@@ -10,7 +10,7 @@ import (
 )
 
 //export format
-func format(a int, b float32, c float64, d *uint16) uintptr {
+func format(a int, b float32, c float64 /* GO会自动把IEEE 754二进制转换为float23/64 */, d *uint16) uintptr {
 	ds := windows.UTF16PtrToString(d)
 	s, _ := syscall.UTF16PtrFromString(fmt.Sprintf("int:%d\nfloat32:%G\nfloat64:%G\nstring:%s", a, b, c, ds))
 	return uintptr(unsafe.Pointer(s))
