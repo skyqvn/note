@@ -74,8 +74,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern __declspec(dllexport) GoUintptr format(GoInt a, GoFloat32 b, GoFloat64 c, GoUintptr d);
-extern __declspec(dllexport) GoInt add(GoInt a, GoInt b);
+extern __declspec(dllexport) GoUintptr format(GoInt a, GoFloat32 b, GoFloat64 c, GoUint16* d);
 
 #ifdef __cplusplus
 }

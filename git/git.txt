@@ -17,4 +17,6 @@ git fetch origin master//拉取master仓库的代码
 git config --global credential.helper store//记住密码
 
 git fetch --all
-git reset --hard origin/master
+git reset --hard HEAD//撤销工作区
+git reset --hard HEAD^//回滚上个版本
+git reset --hard HEAD~3//回滚上3个版本
