@@ -1,0 +1,68 @@
+* `vcl`  
+  包含Lazarus标准组件中的大部分
+
+  * `i18n`  
+  一个简单的多国语言扩展包   
+
+  * `api`
+  DLL函数申明与重新包装,一般情况下尽量不要去直接调用api内的函数。
+
+     * `memorydll`  
+     Windows下的32bit内存dll加载包。   
+
+  * `rtl`  
+  包含Lazarus中Set类型操作、内存操作等其它函数   
+
+    * `version`  
+     包含一个跨平台的系统版本信息获取。   
+
+  * `bitmap` 
+  Go的image与LCL image对象相互转换。
+
+  * `locales`
+   本地化库中的默认资源包。
+    * `zh_CN`
+     默认的中文资源包。
+
+ 
+
+---
+
+* `win`    
+   包含windows下的常量、函数、类型定义    
+
+   * `errcode`  
+    包含windows下GetLastError返回的错误代码含义      
+---
+
+
+* `types`  
+   包含 类型定义、枚举定义、常量  
+  
+  * `colors`  
+     颜色定义   
+
+  * `keys`  
+     虚拟键定义  
+
+  * `messages`  
+     窗口消息常量定义    
+---
+* `pkgs` 扩展包
+  * `macapp`  
+  MacOS下app打包工具  
+
+  * `libname`  
+  自定义加载动态连接库   
+
+  * `skinh`  
+  skinsharp皮肤扩展接口  
+
+  * `winappres`  
+  包含了一个默认的syso文件
+
+  * `wke`  
+  一个简单的wke浏览器封封装，只支持windows 32bit
+
+  * `miniblink`  
+  一个miniblink浏览器组件的包装（有些还有问题）     

@@ -1,0 +1,87 @@
+* `Move` 
+内存操作，相当于c中的memcpy  
+
+
+* `MainInstance` 
+Exe自身实例，比如在获取资源中的数据时就需要用到，限windows  
+
+```go
+win.LoadIconW(rtl.MainInstance(), 1)
+```  
+ 
+
+* `TextToShortCut` 
+将字符串转为ShortCut类型   
+```go
+rtl.TextToShortCut("Ctrl+A")
+```
+ 
+
+* `ShortCutToText` 
+将ShortCut类型转为字符串  
+
+
+* `SysOpen` 
+打开，windows下调用ShellExecute  
+```go
+
+// windows
+rtl.SysOpen("http://www.xxx.com")
+rtl.SysOpen("c:\")
+rtl.SysOpen("c:\xxx.exe")
+
+// linux or macOS
+rtl.SysOpen("https://wwww.xxx.com")
+rtl.SysOpen("file:///xxx.png");
+```
+
+* `ExtractFilePath` 
+提取文件名的路径，带“\”的  
+```go
+rtl.ExtractFilePath("C:\\aaa\\bbb\\aaa.text")
+output: C:\aaa\bbbb\
+``` 
+
+* `FileExists` 
+判断文件是否存在  
+
+* `ExtractFileExt` 
+获取文件扩展名   
+
+* `ExtractFileName` 
+获取一个文件名   
+
+* `GetFileNameWithoutExt` 
+获取一个无扩展的文件名  
+
+* `Combine` 
+合并   
+ 
+* `LibVersion`  
+共8位，2位2位的，如：$01020100 表示 1.2.1.0   
+
+* `LibAbout`  
+2.0.2版本之后的api，liblcl的关于信息。   
+
+* `MainThreadId`  
+2.0.2版本之后的api，返回主线程ID   
+
+* `CurrentThreadId`  
+2.0.2版本之后的api，返回当前线程ID  
+
+* `CreateURLShortCut`
+限Windows，创建一个url的快捷方式  
+```go
+rtl.CreateURLShortCut("C:\\aaa\\bbb\\", "govcl", "https://github.com/ying32/govcl")
+```
+* `CreateShortCut`  
+限Windows，创建一个快捷方式   
+```go
+rtl.CreateShortCut("C:\\Users\\administrator\\Desktop\\", "govcl", os.Args[0], "", "", "")
+// or
+rtl.CreateShortCut("C:\\Users\\administrator\\Desktop\\", "govcl", os.Args[0], "", "Description text", "-a -b")
+```
+
+* `InitGoDll`  
+ 2.0.3版本之后的api，用于go的dll中使用govcl，具体参考`samples/Windows/nppPlugins`   
+

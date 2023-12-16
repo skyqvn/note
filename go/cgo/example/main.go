@@ -10,11 +10,12 @@ import (
 
 import "C"
 
+var FormatDLL *syscall.LazyDLL
 var FormatFunc *syscall.LazyProc
 
 func init() {
-	fn := syscall.NewLazyDLL("format/format.dll")
-	FormatFunc = fn.NewProc("format")
+	FormatDLL = syscall.NewLazyDLL("format/format.dll")
+	FormatFunc = FormatDLL.NewProc("format")
 }
 
 func Format(a int, b float32, c float64, d string) string {
@@ -26,11 +27,11 @@ func Format(a int, b float32, c float64, d string) string {
 	//在单个Go进程中只能创建有限数量的回调，并且为这些回调分配的任何内存永远不会释放。
 	//在NewCallback和NewCallbackCDecl之间，至少可以创建1024个回调。
 	//syscall.NewCallback()
-
+	
 	//NewCallbackCDecl将Go函数转换为符合cdecl调用约定的函数指针。
 	//其他相同
 	//syscall.NewCallbackCDecl()
-
+	
 	result, _, _ := FormatFunc.Call(uintptr(a), uintptr(math.Float32bits(b)), uintptr(math.Float64bits(c)), uintptr(unsafe.Pointer(s)))
 	return windows.UTF16PtrToString((*uint16)(unsafe.Pointer(result)))
 }
