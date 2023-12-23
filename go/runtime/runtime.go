@@ -20,6 +20,10 @@ func main() {
 	fmt.Println(runtime.GOOS)     //系统
 	fmt.Println(runtime.GOARCH)   //CPU架构
 	fmt.Println(runtime.GOROOT()) //获取GOROOT
+	//能够返回在函数栈中的PC(指令寄存器，可以认为存储了当前执行到了哪里)，所在的文件，所在文件的具体哪一行。这里的skip指的是跳过多少个函数栈。
+	//runtime.Caller()
+	//能够根据给定的指令寄存器给出其所在的行数。
+	//runtime.FuncForPC().Name()/FileLine()/Entry()
 
 	//LockOSThread
 	go func() {
@@ -44,7 +48,7 @@ func main() {
 		}
 	}()
 
-	//Goexit
+	//Goexit，结束当前协程（但会执行defer）
 	go func() {
 		defer func() {
 			fmt.Println("E")
@@ -67,7 +71,8 @@ func main() {
 	}
 	fmt.Println(*(*int)(p1))
 
-	//SetFinalizer
+	//SetFinalizer，对象被GC时运行
+	//SetFinalizer(obj, nil)清除所有与obj相关的终结器。
 	p2 := new(int)
 	runtime.SetFinalizer(p2, func(n *int) {
 		fmt.Println(*n)

@@ -81,7 +81,7 @@ JG label
 ```plan9_x86
 //GLOBL在DATA之后
 DATA symbol+offset(SB)/width,value
-GLOBL symbol, (NOPTR+RODATA), $4
+GLOBL symbol, (NOPTR+RODATA), $86
 ```
 
 GOLBL选项：

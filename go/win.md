@@ -60,19 +60,19 @@ win.MessageBoxW(0, "text", "caption", 0)
 ---
 
 * `GetClientRect` 
-获取指定窗口句柄的客户区矩形  
+获取指定窗口句柄的客户区矩形
 ```go
 r := win.GetClientRect(hWnd)
 ```
 
-* `ResourceToBytes`  
-查找指定实例中 指定名称、指定类型 资源，并返回资源字节  
+* `ResourceToBytes`
+查找指定实例中 指定名称、指定类型 资源，并返回资源字节
 
-* `OpenInExplorer`  
-在资源管理器中定位文件  
+* `OpenInExplorer`
+在资源管理器中定位文件
 
-* `RunAsAdministrator`  
-以管理员权限运行一个程序  
+* `RunAsAdministrator`
+以管理员权限运行一个程序
 
-* `IsAdministrator`  
-判断当前进程是否以Administrator权限运行中
+* `IsAdministrator`
+	判断当前进程是否以Administrator权限运行中

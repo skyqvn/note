@@ -24,7 +24,7 @@ const (
 	MB_ICONERROR         = MB_ICONHAND
 	MB_ICONINFORMATION   = MB_ICONASTERISK
 	MB_ICONSTOP          = MB_ICONHAND
-	
+
 	MB_DEFBUTTON1 = 0x00000000
 	MB_DEFBUTTON2 = 0x00000100
 	MB_DEFBUTTON3 = 0x00000200
@@ -38,7 +38,7 @@ func abort(funcname string, err syscall.Errno) {
 var (
 	//    kernel32, _        = syscall.LoadLibrary("kernel32.dll")
 	//    getModuleHandle, _ = syscall.GetProcAddress(kernel32, "GetModuleHandleW")
-	
+
 	user32, _     = syscall.LoadLibrary("user32.dll")
 	messageBox, _ = syscall.GetProcAddress(user32, "MessageBoxW")
 )
@@ -85,8 +85,8 @@ func ShowMessage2(title, text string) {
 func main() {
 	//    defer syscall.FreeLibrary(kernel32)
 	defer syscall.FreeLibrary(user32)
-	
-	//fmt.Printf("Retern: %d\n", MessageBox("Done Title", "This test is Done.", MB_YESNOCANCEL))
+
+	fmt.Printf("Retern: %d\n", MessageBox("Done Title", "This test is Done.", MB_YESNOCANCEL))
 	num := MessageBox("Done Title", "This test is Done.", MB_YESNOCANCEL)
 	fmt.Printf("Get Retrun Value Before MessageBox Invoked: %d\n", num)
 	ShowMessage2("windows下的另一种DLL方法调用", "HELLO !")

@@ -19,6 +19,11 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 /* Start of preamble from import "C" comments.  */
 
 
+#line 4 "format.go"
+
+#include "run_callback.h"
+
+#line 1 "cgo-generated-wrapper"
 
 
 /* End of preamble from import "C" comments.  */
@@ -74,7 +79,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern __declspec(dllexport) GoUintptr format(GoInt a, GoFloat32 b, GoFloat64 c, GoUint16* d);
+extern __declspec(dllexport) GoUintptr format(GoInt a, GoFloat32 b, GoFloat64 c, GoUint16* d, GoUintptr e);
 
 #ifdef __cplusplus
 }

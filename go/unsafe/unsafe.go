@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	//Example1:
 	var s string
 	var i int
 	var i64 int64
@@ -31,4 +32,21 @@ func main() {
 	ip := (*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&v)) + uintptr(8)))
 	*ip = 20
 	fmt.Println(v.B)
+	
+	//Example2:
+	const len = 11
+	var data = [len]byte{'h', 'e', 'l', 'l', 'o',' ','w','o','r','l','d'}
+	//unsafe.String() 根据指针和长度创造String.注意，String不应被更改.
+	str:=unsafe.String(&data[0],len)
+	fmt.Println(str)
+	
+	//unsafe.Slice() 根据指针和长度创作Slice
+	sli:=unsafe.Slice(&data[0],len)
+	fmt.Println(sli)
+	
+	strPtr:=unsafe.StringData(str)
+	fmt.Println(strPtr)
+	
+	sliPtr:=unsafe.SliceData(sli)
+	fmt.Println(sliPtr)
 }

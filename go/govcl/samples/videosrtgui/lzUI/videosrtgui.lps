@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units Count="14">
+      <Unit0>
+        <Filename Value="videosrtgui.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="71" Y="25"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="umain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uMain"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="161"/>
+        <CursorPos X="23" Y="170"/>
+        <UsageCount Value="20"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="uuappsettings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AppSettings"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uuAppSettings"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9"/>
+        <CursorPos X="20" Y="25"/>
+        <UsageCount Value="20"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="unewbaidutranslateengine.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="NewBaiduTranslateEngine"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uNewBaiduTranslateEngine"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="13"/>
+        <CursorPos X="5" Y="44"/>
+        <UsageCount Value="20"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="unewtencenttranslateengine.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="NewTencentTranslateEngine"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uNewTencentTranslateEngine"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="11"/>
+        <CursorPos X="5" Y="42"/>
+        <UsageCount Value="20"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="uosssavesettings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="OSSSaveSettings"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uOSSSaveSettings"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="5" Y="46"/>
+        <UsageCount Value="20"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="unewaliyunaudioengine.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="NewAliyunAudioEngine"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uNewAliyunAudioEngine"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="uunewaliyunaudioengine.pas"/>
+        <ComponentName Value="NewAliyunAudioEngine"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uuNewAliyunAudioEngine"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="5" Y="46"/>
+        <UsageCount Value="20"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\uNewTencentTranslateEngine.lfm"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="F:\lazarus\lcl\menus.pp"/>
+        <UnitName Value="Menus"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="411"/>
+        <CursorPos X="17" Y="429"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="F:\lazarus\lcl\include\popupmenu.inc"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="61"/>
+        <CursorPos X="3" Y="65"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="F:\lazarus\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <TopLine Value="2116"/>
+        <CursorPos X="31" Y="2133"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="F:\lazarus\lcl\include\toolbutton.inc"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="883"/>
+        <CursorPos X="42" Y="907"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="F:\lazarus\lcl\include\toolbar.inc"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1091"/>
+        <CursorPos X="3" Y="1075"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit13>
+    </Units>
+    <JumpHistory Count="5" HistoryIndex="4">
+      <Position1>
+        <Filename Value="F:\lazarus\lcl\menus.pp"/>
+        <Caret Line="429" Column="17" TopLine="411"/>
+      </Position1>
+      <Position2>
+        <Filename Value="F:\lazarus\lcl\comctrls.pp"/>
+        <Caret Line="2134" Column="15" TopLine="2117"/>
+      </Position2>
+      <Position3>
+        <Filename Value="F:\lazarus\lcl\include\toolbutton.inc"/>
+        <Caret Line="907" Column="42" TopLine="883"/>
+      </Position3>
+      <Position4>
+        <Filename Value="F:\lazarus\lcl\comctrls.pp"/>
+        <Caret Line="2291" Column="14" TopLine="2273"/>
+      </Position4>
+      <Position5>
+        <Filename Value="F:\lazarus\lcl\comctrls.pp"/>
+        <Caret Line="2291" Column="14" TopLine="2273"/>
+      </Position5>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
