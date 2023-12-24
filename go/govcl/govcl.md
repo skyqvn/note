@@ -71,6 +71,7 @@ PopupMode//弹出模式？
 PopupParent//弹出的父对象
 
 //Form
+
 AlphaBlend//是否启用透明度
 AlphaBlendValue//透明度值（数值越小越透明）
 BorderIcons//边框按钮
@@ -107,6 +108,15 @@ BevelColor
 BevelInner
 BevelOuter
 BevelWidth
+
+//ImageButton
+
+//将图片分割成几份，平时第一份，鼠标悬浮第二份，按下第三份
+ImageCount
+//图片分割方向
+Orientation
+	- ioHorizontal
+	- ioVertical
 
 //Shape
 
@@ -181,6 +191,14 @@ func (f *TMainForm) OnButton1Click(sender vcl.IObject) {//已自动关联到Butt
 }
 
 f.Button3.SetOnClick(f.OnButton1Click)//动态将OnButton1Click关联到Button3
+```
+
+### 原理
+
+```text
+govcl会自动将有SetOn_EventType()的结构的On_StructName_EventType()绑定
+
+见源代码autoBindEvents、addComponentNotifyEvent、addApplicationNotifyEvent、findAndSetEvent
 ```
 
 ### 速查表
@@ -784,7 +802,7 @@ output: C:\aaa\bbbb\
 * `GetFileNameWithoutExt` 
 	获取一个无扩展的文件名  
 
-* `Combine` 
+* `Combine`
 	合并   
 
 * `LibVersion`
@@ -797,7 +815,7 @@ output: C:\aaa\bbbb\
 	2.0.2版本之后的api，返回主线程ID   
 
 * `CurrentThreadId`
-	2.0.2版本之后的api，返回当前线程ID  
+	2.0.2版本之后的api，返回当前线程ID
 
 * `CreateURLShortCut`
 	限Windows，创建一个url的快捷方式
@@ -807,7 +825,7 @@ rtl.CreateURLShortCut("C:\\aaa\\bbb\\", "govcl", "https://github.com/ying32/govc
 ```
 
 * `CreateShortCut`
-	限Windows，创建一个快捷方式   
+	限Windows，创建一个快捷方式
 
 ```go
 rtl.CreateShortCut("C:\\Users\\administrator\\Desktop\\", "govcl", os.Args[0], "", "", "")
