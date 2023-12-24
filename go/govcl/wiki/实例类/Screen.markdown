@@ -118,4 +118,3 @@ for i := 0; i < fonts.Count(); i++ {
 fmt.Println(vcl.Screen.Cursor())
 vcl.Screen.SetCursor(types.CrArrow)
 ```
- 

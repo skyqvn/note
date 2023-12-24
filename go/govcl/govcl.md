@@ -1,142 +1,5 @@
 # GOVCL
 
-
-
-## Form窗口属性
-
-```text
-Align//排列
-	- alBottom
-	- alClient
-	- alCustom
-	- alLeft
-	- alNone
-	- alRight
-	- alTop
-Anchors//锚点（相对位置）
-AllowDropFile//是否允许拖入文件
-AlphaBlend//透明色混合？
-AlphaBlendValue//透明色混合值？
-AutoScroll//自动滚动？
-AutoSize//自动大小？
-BiDiMode//文字排列方向
-BorderIcons//边框按钮
-	biHelp//帮助（仅在biMaximize、biMinimize均为False时显示）
-	biMaximize（最大化按钮）
-	biMinimize（最小化按钮）
-	biSystemMenu（系统菜单，False时窗口只有标题，无图标与任何按钮）
-BorderStyle//边框模式
-	bsDialog//对话框（标题、叉号）
-	bsNone（无）
-	bsSingle（全部、窄边框）
-	bsSizeable（全部）
-	bsSizeToolWin（标题、方叉号、可变大小）
-	bsToolWindow（标题、方叉号、不可变大小）
-BorderWidth//？
-Caption//标题
-ChildSizing//布局方式（横向、纵向等）
-	ControlsPerLine//每行空间数
-	EnlargeHorizontal//横向对齐选项
-		- crsAnchorAligning//左端对齐
-		- crsHomogenousChildResize//均匀拉伸对齐
-		- crsHomogenousSpaceResize//均匀分散对齐（不拉伸）
-		- crsScaleChilds//与crsHomogenousChildResize相似？
-	EnlargeVertical//纵向对齐选项
-		- //同上
-	HorizontalSpacing//横向控件间间隔
-	Layout
-		- cclLeftToRightThenTopToBottom
-		- cclNone
-		- cclTopToBottomThenLeftToRight
-	LeftRightSpacing//左右两侧空间
-	ShrinkHorizontal//横向空间不足时
-	ShrinkVertical//纵向空间不足时
-	TopBottomSpacing//上下两侧空间
-	VerticalSpacing//纵向控件间间隔
-Color//颜色
-Constraints//极限大小
-	MaxHeight
-	MaxWidth
-	MinHeight
-	MinWidth
-Cursor//光标形状
-DefaultMonitor//？
-DesignTimePPI//？
-DockSite//？
-DoubleBuffered//双缓冲，建议为True
-DragKind//拖动类型？
-DragMode//拖动模式？
-Enabled//是否启用
-Font//字体
-	CharSet
-	Color
-	Height
-	Name
-	Orientation
-	Pitch
-	Quality
-	Size
-	Style//样式
-		fsBold
-		fsltalic
-		fsStrikeOut
-		fsUnderline
-FormStyle//
-	- fsNormal//既不是MDI父窗口，也不是一个MDI子窗口
-	- fsMDIChild//是一个MDI子窗口
-	- fsMDIForm//是一个MDI父窗口
-	- fsStayOnTop//窗体始终处在最前端
-Height//高度
-HelpContext//？
-HelpFile//？
-HelpKeyword//？
-HelpType//？
-Hint//提示文字（鼠标悬浮时的提示文字）
-HorzScrollBar//横向滚动条？
-	Increment
-	Page
-	Position
-	Range
-	Smooth
-	Tracking
-	Visible
-Icon//图标
-KeyPreview//？
-Left//到左侧距离，用于设置窗口位置
-Menu//菜单
-Name//名称
-ParentBiDiMode//？
-ParentDoubleBuffered//？
-ParentFont//？
-PixelsPerlnch//分辨率，PPI
-PopupMenu//弹出菜单
-PopupMode//弹出模式？
-PopupParent//弹出的父对象
-Position//？
-Scaled//？
-SessionProperties//会话属性
-ShowHint//是否显示提示文字
-ShowlnTaskBar//是否在任务栏显示
-Tag//？
-Top//到顶部距离，用于设置窗口位置
-UseDockManager//？
-VertScrollBar//纵向滚动条？
-	Increment
-	Page
-	Position
-	Range
-	Smooth
-	Tracking
-	Visible
-Visible//是否显示
-Width//宽度
-WindowState//窗口状态
-	- wsNormal//普通状态
-	- wsFullScreen//全屏状态
-	- wsMaximized//最大化状态
-	- wsMinimized//最小化状态
-```
-
 ## 常用属性
 
 ```text
@@ -649,9 +512,9 @@ type TMovedEvent func(sender IObject, fromIndex, toIndex int32)
 // state 绘制状态
 ```
 
+## 实例类
 
-
-## Application
+### Application
 
 > 详见./wiki/实例类/Application.markdown
 
@@ -692,3 +555,311 @@ type TMovedEvent func(sender IObject, fromIndex, toIndex int32)
 * `ScaleForCurrentDpi`
 
 	用于使用纯代码创建的窗口缩放，所有组件创建完后调用 
+
+### Screen
+
+> 详见./wiki/实例类/Screen.markdown
+
+与屏幕相关的API。Screen由Lazarus在单元initialization和finalization时自动构造和析构。  
+
+常用方法：  
+
+**以像素为单位**  
+
+* `Width`
+	当前屏幕宽度
+
+
+* `Height`
+	当前屏幕高度 
+
+
+* `MonitorCount`
+	监视器总数，多显示器情况
+
+
+* `Monitors`
+	获取指定索引监视器
+
+* `FormCount`
+	获当前app的Form总数
+
+* `Forms`
+	获当前app的Form索引
+
+
+**桌面相关api，包含任务栏**  
+
+* `DesktopHeight`
+	桌面高度
+
+
+* `DesktopLeft`
+	桌面左边位置
+
+
+* `DesktopTop`
+	桌面顶边位置
+
+
+* `DesktopWidth`
+	桌面的宽度
+
+
+**工作区域，不包含任务栏**  
+
+* `WorkAreaHeight`
+	工作区域高度
+
+
+* `WorkAreaLeft`
+	工作区域左边位置
+
+
+* `WorkAreaTop`
+	工作区域顶边位置
+
+
+* `WorkAreaWidth`
+	工作区域的宽度
+
+
+* `Fonts`
+	获取当前系统字体列表
+
+
+* `Cursor`、`SetCursor`
+	获取或者设置当前屏幕光标样式
+
+### Mouse
+
+> 详见./wiki/实例类/Mouse.markdown
+
+鼠标相关API。Mouse由Lazarus在单元initialization和finalization时自动构造和析构。  
+
+> 注意，获取或者设置当前屏幕光标样式在Screen中.
+
+常用方法：  
+
+* `CursorPos`
+	获取当前光标位置（即鼠标位置，相对屏幕，以左上角为原点，即（0,0））
+
+### Printer
+
+> 详见samples\printer
+
+### Clipboard
+剪切板操作。 Clipboard实例由Lazarus在单元initialization和finalization时自动构造和析构。
+
+常用的几个方法：
+
+| 方法      | 说明                             | 例                                          |
+| --------- | -------------------------------- | ------------------------------------------- |
+| AsText    | 获取剪切板文字                   | ``` fmt.Println(vcl.Clipboard.AsText()) ``` |
+| SetAsText | 设置剪切板文字                   | ``` vcl.Clipboard.SetAsText("1111") ```     |
+| Clear     | 清空剪切板                       | ``` vcl.Clipboard.Clear() ```               |
+| SetAsHtml | 设置一段html格式到剪切板中       |                                             |
+| GetAsHtml | 从剪切板中获取一段html格式字符串 |                                             |
+| Open      | 打开剪切板                       | ``` vcl.Clipboard.Open() ```                |
+| Close     | 关闭剪切板                       | ``` vcl.Clipboard.Close() ```               |
+
+## 包
+
+* `vcl`
+	包含Lazarus标准组件中的大部分
+	* `i18n`
+		一个简单的多国语言扩展包   
+
+	* `api`
+		DLL函数申明与重新包装,一般情况下尽量不要去直接调用api内的函数。
+		 * `memorydll`
+			Windows下的32bit内存dll加载包。   
+
+	* `rtl`
+		包含Lazarus中Set类型操作、内存操作等其它函数   
+		* `version`
+			包含一个跨平台的系统版本信息获取。   
+
+	* `bitmap`
+		Go的image与LCL image对象相互转换。
+
+	* `locales`
+		本地化库中的默认资源包。
+		* `zh_CN`
+			默认的中文资源包。
+
+---
+
+* `win`
+	包含windows下的常量、函数、类型定义    
+	* `errcode`
+		包含windows下GetLastError返回的错误代码含义      
+
+---
+
+
+* `types`
+	包含 类型定义、枚举定义、常量  
+	* `colors`
+		颜色定义   
+
+	* `keys`
+		虚拟键定义  
+
+	* `messages`
+		窗口消息常量定义    
+
+---
+
+* `pkgs` 扩展包
+	* `macapp`
+		MacOS下app打包工具  
+	* `libname`
+		自定义加载动态连接库   
+	* `skinh`
+		skinsharp皮肤扩展接口  
+	* `winappres`
+		包含了一个默认的syso文件
+	* `wke`
+		一个简单的wke浏览器封封装，只支持windows 32bit
+	* `miniblink`
+		一个miniblink浏览器组件的包装（有些还有问题）
+	* 
+
+* `Move` 
+	内存操作，相当于c中的memcpy  
+
+
+* `MainInstance` 
+	Exe自身实例，比如在获取资源中的数据时就需要用到，限windows  
+
+```go
+win.LoadIconW(rtl.MainInstance(), 1)
+```
+
+### rtl
+* `TextToShortCut` 
+	将字符串转为ShortCut类型
+
+```go
+rtl.TextToShortCut("Ctrl+A")
+```
+
+
+* `ShortCutToText` 
+	将ShortCut类型转为字符串  
+
+
+* `SysOpen` 
+	打开，windows下调用ShellExecute  
+
+```go
+// windows
+rtl.SysOpen("http://www.xxx.com")
+rtl.SysOpen("c:\")
+rtl.SysOpen("c:\xxx.exe")
+
+// linux or macOS
+rtl.SysOpen("https://wwww.xxx.com")
+rtl.SysOpen("file:///xxx.png");
+```
+
+* `ExtractFilePath` 
+	提取文件名的路径，带“\”的  
+
+```go
+rtl.ExtractFilePath("C:\\aaa\\bbb\\aaa.text")
+output: C:\aaa\bbbb\
+```
+
+* `FileExists` 
+	判断文件是否存在  
+
+* `ExtractFileExt` 
+	获取文件扩展名   
+
+* `ExtractFileName` 
+	获取一个文件名   
+
+* `GetFileNameWithoutExt` 
+	获取一个无扩展的文件名  
+
+* `Combine` 
+	合并   
+
+* `LibVersion`
+	共8位，2位2位的，如：$01020100 表示 1.2.1.0   
+
+* `LibAbout`
+	2.0.2版本之后的api，liblcl的关于信息。   
+
+* `MainThreadId`
+	2.0.2版本之后的api，返回主线程ID   
+
+* `CurrentThreadId`
+	2.0.2版本之后的api，返回当前线程ID  
+
+* `CreateURLShortCut`
+	限Windows，创建一个url的快捷方式
+
+```go
+rtl.CreateURLShortCut("C:\\aaa\\bbb\\", "govcl", "https://github.com/ying32/govcl")
+```
+
+* `CreateShortCut`
+	限Windows，创建一个快捷方式   
+
+```go
+rtl.CreateShortCut("C:\\Users\\administrator\\Desktop\\", "govcl", os.Args[0], "", "", "")
+// or
+rtl.CreateShortCut("C:\\Users\\administrator\\Desktop\\", "govcl", os.Args[0], "", "Description text", "-a -b")
+```
+
+* `InitGoDll`
+	2.0.3版本之后的api，用于go的dll中使用govcl，具体参考`samples/Windows/nppPlugins`   
+
+### vcl
+
+* `DEBUG`
+	全局变量，默认为false,在CreateForm之前设置值方可生效，开启后，一般在OnFormCreate事件上发生错误后可以打印完整的堆栈信息。  
+
+
+---
+
+* `ShowMessage`
+	显示一个消息框
+
+----
+
+* `ShowMessageFmt`
+	显示一个消息框
+
+---
+
+* `MessageDlg`
+	显示一个消息框，消息框，Buttons为按钮样式，祥见types.TMsgDlgButtons
+
+---
+
+* `SelectDirectory1`
+	选择目录，弹出一个选择目录对话框，老版本样式
+
+---
+
+* `SelectDirectory2`
+	选择目录，弹出一个选择目录对话框
+
+* `ThreadSync`
+	切换至主线程中运行指定代码，主要用于协程中UI的访问
+
+* `InputBox`
+	输入对话框，参考例程sysdialog
+
+* `InputQuery`
+	输入对话框，参考例程sysdialog
+
+* `RunApp` 
+	简化运行。
+
+* `EqualsObject`
+	比较两个对象
