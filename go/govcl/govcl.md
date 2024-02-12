@@ -1,9 +1,10 @@
-# GOVCL
+﻿# GOVCL
 
 ## 常用属性
 
+### 通用
+
 ```text
-//通用
 Caption//标题
 Left//到左侧距离，用于设置控件位置
 Top//到顶部距离，用于设置控件位置
@@ -14,7 +15,7 @@ Constraints//极限大小
 	MaxWidth
 	MinHeight
 	MinWidth
-Hint//提示文字（鼠标悬浮时的提示文字）
+Hint//提示文字（鼠标悬浮或自动提示的提示文字），用A|B格式写时，A为鼠标悬浮时的提示文字，B为自动提示（多用在StatusBar中）文字
 ShowHint//是否显示提示文字
 Cursor//光标形状
 Visible//是否显示
@@ -49,6 +50,7 @@ ChildSizing//布局方式（横向、纵向等）
 	ShrinkVertical//纵向空间不足时
 	TopBottomSpacing//上下两侧空间
 	VerticalSpacing//纵向控件间间隔
+Default//是否默认得焦
 DoubleBuffered//双缓冲，建议为True
 Font//字体
 	CharSet
@@ -70,8 +72,11 @@ PopupMenu//弹出菜单
 PopupMode//弹出模式？
 PopupParent//弹出的父对象
 
-//Form
+```
 
+### Form
+
+```text
 AlphaBlend//是否启用透明度
 AlphaBlendValue//透明度值（数值越小越透明）
 BorderIcons//边框按钮
@@ -101,16 +106,22 @@ WindowState//窗口状态
 	- wsMaximized//最大化状态
 	- wsMinimized//最小化状态
 
-//Panel
+```
 
+### Panel
+
+```text
 //边框样式
 BevelColor
 BevelInner
 BevelOuter
 BevelWidth
 
-//ImageButton
+```
 
+### ImageButton
+
+```text
 //将图片分割成几份，平时第一份，鼠标悬浮第二份，按下第三份
 ImageCount
 //图片分割方向
@@ -118,8 +129,12 @@ Orientation
 	- ioHorizontal
 	- ioVertical
 
-//Shape
 
+```
+
+### Shape
+
+```text
 Shape
 	- stCircle
 	- stDiamond
@@ -170,6 +185,132 @@ Pen
 		- psSolid
 	Width//宽度
 
+```
+
+### 文本
+
+```text
+WordWrap//文本自动折行
+
+```
+
+### 选项
+
+```text
+ItemHeight//选项高度
+ItemIndex//选中选项索引
+Items//选项列表
+ItemWidth//选项宽度
+
+```
+
+### ComboBox
+
+```text
+Style
+	- csDropDown//可编辑，下拉
+	- csDropDownList//不可编辑，下拉
+	- csOwnerDrawEditableFixed
+	- csOwnerDrawEditableVariable
+	- csOwnerDrawFixed
+	- csOwnerDrawVariable
+	- csSimple
+
+```
+
+### ScrollBox
+
+```text
+HorzScrollBar//横向滚动条
+VertScrollBar//纵向滚动条
+	Increment//单击时移动
+	Page
+	Position//当前值
+	Range//最大
+	Smooth
+	Tracking//平滑，就是鼠标拖动时页面移动，而不是等鼠标释放后再移动.
+	Visible
+
+```
+
+
+
+## 鼠标
+
+> 定义见govcl\types\cursors.go
+
+### 自定义
+
+```go
+//定义光标
+const MyCursor=1
+i := vcl.NewIcon()
+i.LoadFromFile("icon.ico")
+vcl.Screen.SetCursors(MyCursor, i.Handle())//定义新光标，索引为1，形状是i的形状
+
+//设置光标
+vcl.Screen.SetCursor(MyCursor)//将光标设置为索引为1的光标
+vcl.Screen.SetCursor(types.CrDefault)
+```
+
+### 常量
+
+```text
+CrHigh
+CrDefault
+CrNone
+CrArrow
+CrCross
+CrIBeam
+CrSize
+CrSizeNESW
+CrSizeNS
+CrSizeNWSE
+CrSizeWE
+CrSizeNW
+CrSizeN
+CrSizeNE
+CrSizeW
+CrSizeE
+CrSizeSW
+CrSizeS
+CrSizeSE
+CrUpArrow
+CrHourGlass
+CrDrag
+CrNoDrop
+CrHSplit
+CrVSplit
+CrMultiDrag
+CrSQLWait
+CrNo
+CrAppStart
+CrHelp
+CrHandPoint
+CrSizeAll
+CrLow
+```
+
+
+
+## 异常处理
+
+```go
+vcl.Application.SetOnException(func(sender vcl.IObject, e *vcl.Exception) {
+	// 在这里自行处理VCL中的异常
+})
+```
+
+## 接口
+
+```text
+基类接口 IObject
+
+所有可视/非可视组件类接口 IComponent
+
+所有可视控件类接口 IControl
+
+所有容器控件类接口 IWinControl
 ```
 
 
@@ -534,7 +675,7 @@ type TMovedEvent func(sender IObject, fromIndex, toIndex int32)
 
 ### Application
 
-> 详见./wiki/实例类/Application.markdown
+> 详见[./wiki/实例类/Application.markdown](./wiki/实例类/Application.markdown)
 
 * `Initialize`  
 初始始应用程序相关设置，必要写的
@@ -576,7 +717,7 @@ type TMovedEvent func(sender IObject, fromIndex, toIndex int32)
 
 ### Screen
 
-> 详见./wiki/实例类/Screen.markdown
+> 详见[./wiki/实例类/Screen.markdown](./wiki/实例类/Screen.markdown)
 
 与屏幕相关的API。Screen由Lazarus在单元initialization和finalization时自动构造和析构。  
 
@@ -651,7 +792,7 @@ type TMovedEvent func(sender IObject, fromIndex, toIndex int32)
 
 ### Mouse
 
-> 详见./wiki/实例类/Mouse.markdown
+> 详见[./wiki/实例类/Mouse.markdown](./wiki/实例类/Mouse.markdown)
 
 鼠标相关API。Mouse由Lazarus在单元initialization和finalization时自动构造和析构。  
 
@@ -664,7 +805,7 @@ type TMovedEvent func(sender IObject, fromIndex, toIndex int32)
 
 ### Printer
 
-> 详见samples\printer
+> 详见./samples/printer
 
 ### Clipboard
 剪切板操作。 Clipboard实例由Lazarus在单元initialization和finalization时自动构造和析构。

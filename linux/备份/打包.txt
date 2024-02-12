@@ -1,1 +1,2 @@
-tar -cvpf backup.tar --exclude=/data --exclude=/proc --exclude=/media --exclude=/dev --exclude=/sys --exclude=/mnt --exclude=/boot --exclude=/lost+found --exclude=/swap.img /
+﻿tar -cvpf backup.tar --exclude=/data --exclude=/proc --exclude=/media --exclude=/dev --exclude=/sys --exclude=/mnt --exclude=/boot --exclude=/lost+found --exclude=/swap.img /
+tar -xvpf backup.tar -C /

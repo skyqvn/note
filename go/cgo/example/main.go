@@ -20,17 +20,17 @@ func init() {
 
 func Format(a int, b float32, c float64, d string) string {
 	s, _ := syscall.UTF16PtrFromString(d)
-	//NewCallback将Go函数转换为符合stdcall调用约定的函数指针。
-	//这在与需要回调的Windows代码进行互操作时非常有用。
-	//返回值应该是一个uintptr大小的值。
-	//该函数的每个参数不能大于uintptr类型的大小。
-	//在单个Go进程中只能创建有限数量的回调，并且为这些回调分配的任何内存永远不会释放。
-	//在NewCallback和NewCallbackCDecl之间，至少可以创建1024个回调。
-	//syscall.NewCallback()
+	// NewCallback将Go函数转换为符合stdcall调用约定的函数指针。
+	// 这在与需要回调的Windows代码进行互操作时非常有用。
+	// 返回值应该是一个uintptr大小的值。
+	// 该函数的每个参数不能大于uintptr类型的大小。
+	// 在单个Go进程中只能创建有限数量的回调，并且为这些回调分配的任何内存永远不会释放。
+	// 在NewCallback和NewCallbackCDecl之间，至少可以创建1024个回调。
+	// syscall.NewCallback()
 
-	//NewCallbackCDecl将Go函数转换为符合cdecl调用约定的函数指针。
-	//其他相同
-	//syscall.NewCallbackCDecl()
+	// NewCallbackCDecl将Go函数转换为符合cdecl调用约定的函数指针。
+	// 其他相同
+	// syscall.NewCallbackCDecl()
 	e := syscall.NewCallback(func(state int) uintptr {
 		fmt.Printf("状态码：%d\n", state)
 		return 0
