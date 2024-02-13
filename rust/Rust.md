@@ -13,8 +13,6 @@ fn main() {
 
 ## 字符串
 
-```rust
-let mut s: &str = "Hello World";
 let mut s2: String = String::from(s);
 s.as_bytes();
 s.bytes();
@@ -25,8 +23,6 @@ s.contains("Hello");
 s2.clear();
 s.parse::<i32>().unwrap();
 s.trim();
-
-```
 
 ## 向量
 
@@ -47,7 +43,6 @@ vect.pop();
 vect.clear();
 
 ```
-
 ## 哈希表
 
 ```rust
@@ -59,7 +54,6 @@ hm.remove("k");
 hm.remove_entry("k").unwrap();
 
 ```
-
 ## 迭代器
 
 ```rust
@@ -72,7 +66,6 @@ iter.clone().enumerate();
 iter.clone().count();
 
 ```
-
 ## Result/Option处理
 
 ```rust
@@ -91,7 +84,6 @@ opt.is_some();
 opt.is_none();
 
 ```
-
 ## Derive
 
 ```rust
@@ -110,7 +102,6 @@ struct MyStruct {
 }
 
 ```
-
 ## 类型转换
 
 ```rust
@@ -118,7 +109,6 @@ let decimal = 65.4321_f32;
 let integer = decimal as u8;
 let character = integer as char;
 ```
-
 ## 类型别名
 
 ```rust
@@ -126,7 +116,6 @@ type NanoSecond = u64;
 //泛型别名
 type AliasedResult<T> = Result<T, ParseIntError>;
 ```
-
 ## 运算符重载
 
 ```rust
@@ -173,7 +162,6 @@ fn main() {
 }
 
 ```
-
 ## 常量
 
 ```rust
@@ -184,7 +172,6 @@ static A: &'static str = "Rust";
 static mut B: &'static str = "Rust";
 const C: &str = "Rust";
 ```
-
 ## From与Into
 
 > [`From`](https://rustwiki.org/zh-CN/std/convert/trait.From.html) trait 允许一种类型定义 “怎么根据另一种类型生成自己”，因此它提供了一种类型转换的简单机制。
@@ -211,7 +198,6 @@ fn main() {
 }
 
 ```
-
 > [`TryFrom`](https://rustwiki.org/zh-CN/rust-by-example/conversion/try_from_try_into.html) 和 [`TryInto`](https://rustwiki.org/zh-CN/rust-by-example/conversion/try_from_try_into.html) trait 用于易出错的转换，也正因如此，其返回值是 [`Result`](https://rustwiki.org/zh-CN/std/result/enum.Result.html) 型。
 
 > 要把任何类型转换成 `String`，您应该实现[`fmt::Display`](https://rustwiki.org/zh-CN/std/fmt/trait.Display.html) trait，它会自动提供 [`ToString`](https://rustwiki.org/zh-CN/std/string/trait.ToString.html)，并且还可以用来打印类型，就像 [`print!`](https://rustwiki.org/zh-CN/rust-by-example/hello/print.html) 一节中讨论的那样。See:[ToString、fmt::Display](https://rustwiki.org/zh-CN/rust-by-example/conversion/string.html)，[FromStr](https://rustwiki.org/zh-CN/std/str/trait.FromStr.html)
@@ -248,7 +234,6 @@ fn main() {
         └── test_module.rs
 
 ```
-
 [https://rustwiki.org/zh-CN/rust-by-example/mod/split.html](https://rustwiki.org/zh-CN/rust-by-example/mod/split.html)
 
 ## Drop
@@ -297,7 +282,6 @@ fn main() {
 }
 
 ```
-
 ## Crate
 
 [https://rustwiki.org/zh-CN/rust-by-example/crates.html](https://rustwiki.org/zh-CN/rust-by-example/crates.html)
@@ -307,7 +291,6 @@ fn main() {
 rustc --crate-type=lib rary.rs
 rustc main.rs --extern rary=library.rlib --edition=2018
 ```
-
 ```toml
 [package]
 # See: https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -316,7 +299,6 @@ version = "0.1.0"
 edition = "2018"
 sql = "0.4.3"# <-- Add dependency here
 ```
-
 ## cfg
 
 `#[cfg()]` 是 Rust 中的一个属性，用于根据配置条件来选择性地包含或排除代码。
@@ -354,7 +336,6 @@ fn with_my_feature_enabled() {
 }
 
 ```
-
 ```rust
 if cfg!(target_os = "linux") {
     println!("Yes. It's definitely linux!");
@@ -363,7 +344,6 @@ if cfg!(target_os = "linux") {
 }
 
 ```
-
 ## 宏
 
 ```text
@@ -374,7 +354,6 @@ macro_rules! $name {
     $ruleN ;
 }
 ```
-
 ### \$rule：
 
 `($pattern:$identifier) => {$expansion}`
@@ -428,7 +407,6 @@ macro_rules! vec_strs {
 }
 
 ```
-
 ## Mutex和Arc
 
 ```rust
@@ -457,7 +435,6 @@ fn main() {
 }
 
 ```
-
 ## 智能指针
 
 - `Box<T>`：它提供了最简单的堆资源分配方式，单所有权。Box类型拥有其中的值，并且可用于保存结构体中的值，或者从函数返回它们。
@@ -480,7 +457,6 @@ println!("{}", *a.borrow());
 let b = a.borrow_mut();
 let c = a.borrow_mut();
 ```
-
 ### RefCell+Rc: 多个所有者 并且 可以修改值
 
 ```rust
@@ -503,7 +479,6 @@ fn main() {
 }
 
 ```
-
 ### 强/弱引用
 
 ```rust
@@ -515,7 +490,6 @@ let weak = Rc::downgrade(&strong);
 let strong = Weak::upgrade(&weak).unwrap();
 
 ```
-
 ## 编译
 
 ### 编译模式
@@ -525,7 +499,6 @@ cargo build
 cargo build --release
 
 ```
-
 ### 编译目标类型
 
 [链接(linkage) - Rust 参考手册 中文版 (rustwiki.org)](https://rustwiki.org/zh-CN/reference/linkage.html)
@@ -605,7 +578,6 @@ edition = "2021"
 [dependencies]
 
 ```
-
 #### 常用
 
 ```toml
@@ -621,13 +593,11 @@ edition = "2018"
 rand = "0.3.14"
 
 ```
-
 #### 更新依赖
 
 ```bash
 cargo update [-p rand]
 ```
-
 #### 描述
 
 ```toml
@@ -635,7 +605,6 @@ cargo update [-p rand]
 #-snip-
 description = "A fun game where you guess what number the computer has chosen."
 ```
-
 #### license
 
 ```toml
@@ -643,7 +612,6 @@ description = "A fun game where you guess what number the computer has chosen."
 #-snip-
 license = "MIT"
 ```
-
 #### bin
 
 ```toml
@@ -653,7 +621,6 @@ name = "tool_bin_name"# 可执行文件名源，会查找src/bin/tool_bin_name.r
 test = false
 bench = false
 ```
-
 #### lib
 
 ```toml
@@ -671,7 +638,6 @@ harness = true         # Use libtest harness.
 required-features = [] # Features required to build this target (N/A for lib).
 
 ```
-
 #### 优化等级
 
 ```toml
@@ -683,7 +649,6 @@ opt-level = 0
 opt-level = 3
 
 ```
-
 #### 工作空间
 
 > See [Cargo 工作空间 - Rust 程序设计语言 简体中文版 (kaisery.github.io)](https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html)
