@@ -1,7 +1,5 @@
 # Rust
 
-
-
 ## &和ref
 
 ```rust
@@ -12,8 +10,6 @@ fn main() {
 }
 
 ```
-
-
 
 ## 字符串
 
@@ -31,8 +27,6 @@ s.parse::<i32>().unwrap();
 s.trim();
 
 ```
-
-
 
 ## 向量
 
@@ -54,8 +48,6 @@ vect.clear();
 
 ```
 
-
-
 ## 哈希表
 
 ```rust
@@ -67,8 +59,6 @@ hm.remove("k");
 hm.remove_entry("k").unwrap();
 
 ```
-
-
 
 ## 迭代器
 
@@ -82,8 +72,6 @@ iter.clone().enumerate();
 iter.clone().count();
 
 ```
-
-
 
 ## Result/Option处理
 
@@ -104,8 +92,6 @@ opt.is_none();
 
 ```
 
-
-
 ## Derive
 
 ```rust
@@ -113,6 +99,10 @@ opt.is_none();
 /// Copy：可以按位复制（不含引用等），可以在赋值时自动复制，所有实现了 Copy 的类型都必须实现 Clone。
 /// Clone：通过实现 Clone trait，可以使用 my_struct.clone() 创建结构体的克隆副本。
 /// PartialEq 和 Eq：通过实现 PartialEq trait，可以进行结构体的部分相等性比较，而 Eq trait 则实现了完全相等性比较。
+///    PartialEq实现等于和不等于判断，Eq没有方法，但只要实现（必须也实现PartialEq），就满足：
+///        1.a == a；
+///        2.如果a == b，那么b == a；
+///        3.如果a == b且b == c，那么a == c。
 /// PartialOrd 和 Ord：通过实现 PartialOrd trait，可以对结构体进行部分有序性比较，而 Ord trait 实现了完全有序性比较。
 #[derive(Debug,Clone)]
 struct MyStruct {
@@ -120,8 +110,6 @@ struct MyStruct {
 }
 
 ```
-
-
 
 ## 类型转换
 
@@ -131,15 +119,13 @@ let integer = decimal as u8;
 let character = integer as char;
 ```
 
-
-
 ## 类型别名
 
 ```rust
 type NanoSecond = u64;
+//泛型别名
+type AliasedResult<T> = Result<T, ParseIntError>;
 ```
-
-
 
 ## 运算符重载
 
@@ -188,8 +174,6 @@ fn main() {
 
 ```
 
-
-
 ## 常量
 
 ```rust
@@ -200,8 +184,6 @@ static A: &'static str = "Rust";
 static mut B: &'static str = "Rust";
 const C: &str = "Rust";
 ```
-
-
 
 ## From与Into
 
@@ -233,19 +215,45 @@ fn main() {
 > [`TryFrom`](https://rustwiki.org/zh-CN/rust-by-example/conversion/try_from_try_into.html) 和 [`TryInto`](https://rustwiki.org/zh-CN/rust-by-example/conversion/try_from_try_into.html) trait 用于易出错的转换，也正因如此，其返回值是 [`Result`](https://rustwiki.org/zh-CN/std/result/enum.Result.html) 型。
 
 > 要把任何类型转换成 `String`，您应该实现[`fmt::Display`](https://rustwiki.org/zh-CN/std/fmt/trait.Display.html) trait，它会自动提供 [`ToString`](https://rustwiki.org/zh-CN/std/string/trait.ToString.html)，并且还可以用来打印类型，就像 [`print!`](https://rustwiki.org/zh-CN/rust-by-example/hello/print.html) 一节中讨论的那样。See:[ToString、fmt::Display](https://rustwiki.org/zh-CN/rust-by-example/conversion/string.html)，[FromStr](https://rustwiki.org/zh-CN/std/str/trait.FromStr.html)
->
-
-
 
 ## 文件分层
 
-<https://rustwiki.org/zh-CN/rust-by-example/mod/split.html>
+```text
+.
+├── Cargo.lock
+├── Cargo.toml
+├── src/
+│   ├── lib.rs
+│   ├── main.rs
+│   └── bin/
+│       ├── named-executable.rs
+│       ├── another-executable.rs
+│       └── multi-file-executable/
+│           ├── main.rs
+│           └── some_module.rs
+├── benches/
+│   ├── large-input.rs
+│   └── multi-file-bench/
+│       ├── main.rs
+│       └── bench_module.rs
+├── examples/
+│   ├── simple.rs
+│   └── multi-file-example/
+│       ├── main.rs
+│       └── ex_module.rs
+└── tests/
+    ├── some-integration-tests.rs
+    └── multi-file-test/
+        ├── main.rs
+        └── test_module.rs
 
+```
 
+[https://rustwiki.org/zh-CN/rust-by-example/mod/split.html](https://rustwiki.org/zh-CN/rust-by-example/mod/split.html)
 
 ## Drop
 
-<https://rustwiki.org/zh-CN/rust-by-example/trait/drop.html>
+[https://rustwiki.org/zh-CN/rust-by-example/trait/drop.html](https://rustwiki.org/zh-CN/rust-by-example/trait/drop.html)
 
 ```rust
 struct Droppable {
@@ -290,10 +298,9 @@ fn main() {
 
 ```
 
-
-
 ## Crate
-<https://rustwiki.org/zh-CN/rust-by-example/crates.html>
+
+[https://rustwiki.org/zh-CN/rust-by-example/crates.html](https://rustwiki.org/zh-CN/rust-by-example/crates.html)
 
 ```bash
 # 默认情况下，库会使用 crate 文件的名字，前面加上 “lib” 前缀，但这个默认名称可以使用 crate_name 属性 覆盖。
@@ -309,8 +316,6 @@ version = "0.1.0"
 edition = "2018"
 sql = "0.4.3"# <-- Add dependency here
 ```
-
-
 
 ## cfg
 
@@ -371,9 +376,11 @@ macro_rules! $name {
 ```
 
 ### \$rule：
+
 `($pattern:$identifier) => {$expansion}`
 
 ### \$identifier:
+
 - `item: 条目，比如函数、结构体、模组等。`
 - `block: 区块(即由花括号包起的一些语句加上/或是一项表达式)。`
 - `stmt: 语句`
@@ -386,6 +393,7 @@ macro_rules! $name {
 - `tt: 标记树`
 
 ### 重复
+
 - `$` 是字面标记。
 - `( ... )` 代表了将要被重复匹配的模式，由小括号包围。
 - `sep`是一个可选的分隔标记。常用例子包括`,`和`;`。
@@ -421,8 +429,6 @@ macro_rules! vec_strs {
 
 ```
 
-
-
 ## Mutex和Arc
 
 ```rust
@@ -452,21 +458,13 @@ fn main() {
 
 ```
 
-
-
 ## 智能指针
 
 - `Box<T>`：它提供了最简单的堆资源分配方式，单所有权。Box类型拥有其中的值，并且可用于保存结构体中的值，或者从函数返回它们。
-
 - `Rc<T>`：它用于引用计数。每当获取新引用时，计数器会执行递增操作，并在用户释放引用时对计数器执行递减操作。当计数器的值为零时，该值将被移除。
-
 - `Arc<T>`：它用于原子引用计数。这与之前的类型类似，但具有原子性以保证多线程的安全性。
-
 - `Cell<T>`：它为我们提供实现了Copy特征的类型的内部可变性。换句话说，我们有可能获得多个可变引用。
-
 - `RefCell<T>`：它为我们提供了类型的内部可变性，并且不需要实现Copy特征。它用于运行时的锁定以确保安全性。
-
-
 
 ### RefCell内部可变性
 
@@ -482,8 +480,6 @@ println!("{}", *a.borrow());
 let b = a.borrow_mut();
 let c = a.borrow_mut();
 ```
-
-
 
 ### RefCell+Rc: 多个所有者 并且 可以修改值
 
@@ -508,8 +504,6 @@ fn main() {
 
 ```
 
-
-
 ### 强/弱引用
 
 ```rust
@@ -522,3 +516,174 @@ let strong = Weak::upgrade(&weak).unwrap();
 
 ```
 
+## 编译
+
+### 编译模式
+
+```bash
+cargo build
+cargo build --release
+
+```
+
+### 编译目标类型
+
+[链接(linkage) - Rust 参考手册 中文版 (rustwiki.org)](https://rustwiki.org/zh-CN/reference/linkage.html)
+
+- `--crate-type=bin` 或 `#[crate_type = "bin"]` - 将生成一个可执行文件。这就要求在 crate 中有一个 `main`函数，它将在程序开始执行时运行。这将链接所有 Rust 和本地依赖，生成一个单独的可分发的二进制文件。此类型为默认的 crate 类型。
+- `--crate-type=lib` 或 `#[crate_type = "lib"]` - 将生成一个 Rust库(library)。但最终会确切输出/生成什么类型的库在未生成之前还不好清晰确定，因为库有多种表现形式。使用 `lib` 这个通用选项的目的是生成“编译器推荐”的类型的库。像种指定输出库类型的选项在 rustc 里始终可用，但是每次实际输出的库的类型可能会随着实际情况的不同而不同。其它的输出（库的）类型选项都指定了不同风格的库类型，而 `lib` 可以看作是那些类型中的某个类型的别名（具体实际的输出的类型是编译器决定的）。
+- `--crate-type=dylib` 或 `#[crate_type = "dylib"]` - 将生成一个动态 Rust库。这与 `lib` 选项的输出类型不同，因为这个选项会强制生成动态库。生成的动态库可以用作其他库和/或可执行文件的依赖。这种输出类型将创建依赖于具体平台的库（Linux 上为 `*.so`，macOS 上为 `*.dylib`、Windows 上为 `*.dll`）。
+- `--crate-type=staticlib` 或 `#[crate_type = "staticlib"]` - 将生成一个静态系统库。这个选项与其他选项的库输出的不同之处在于——当前编译器永远不会尝试去链接此 `staticlib` 输出[1](https://rustwiki.org/zh-CN/reference/linkage.html#译注1)。此选项的目的是创建一个包含所有本地 crate 的代码以及所有上游依赖的静态库。此输出类型将在 Linux、macOS 和 Windows(MinGW) 平台上创建 `*.a` 归档文件(archive)，或者在 Windows(MSVC) 平台上创建 `*.lib` 库文件。在这些情况下，例如将 Rust代码链接到现有的非 Rust应用程序中，推荐使用这种类型，因为它不会动态依赖于其他 Rust 代码。
+- `--crate-type=cdylib` 或 `#[crate_type = "cdylib"]` - 将生成一个动态系统库。如果编译输出的动态库要被另一种语言加载使用，请使用这种编译选项。这种选项的输出将在 Linux 上创建 `*.so` 文件，在 macOS 上创建 `*.dylib` 文件，在 Windows 上创建 `*.dll` 文件。
+- `--crate-type=rlib` 或 `#[crate_type = "rlib"]` - 将生成一个“Rust库”。它被用作一个中间构件，可以被认为是一个“静态 Rust库”。与 `staticlib` 类型的库文件不同，这些 `rlib` 类型的库文件以后会作为其他 Rust代码文件的上游依赖，未来对那些 Rust代码文件进行编译时，那时的编译器会链并解释此 `rlib`文件。这本质上意味着（那时的） `rustc` 将在（此） `rlib` 文件中查找元数据(metadata)，就像在动态库中查找元数据一样。跟 `staticlib` 输出类型类似，这种类型的输出常配合用于生成静态链接的可执行文件(statically linked executable)。
+- `--crate-type=proc-macro` 或 `#[crate_type = "proc-macro"]` - 生成的输出类型没有被指定，但是如果通过 `-L` 提供了路径参数，编译器将把输出构件识别为宏，输出的宏可以被其他 Rust 程序加载使用。使用此 crate 类型编译的 crate 只能导出[过程宏](https://rustwiki.org/zh-CN/reference/procedural-macros.html)。编译器将自动设置 `proc_macro`[属性配置选项](https://rustwiki.org/zh-CN/reference/conditional-compilation.html)。编译 crate 的目标平台(target)总是和当前编译器所在平台一致。例如，如果在 `x86_64` CPU 的 Linux 平台上执行编译，那么目标将是 `x86_64-unknown-linux-gnu`，即使该 crate 是另一个不同编译目标的 crate 的依赖。
+
+### Cargo.toml
+
+#### 字段含义
+
+> See [The Manifest Format - The Cargo Book (rust-lang.org)](https://doc.rust-lang.org/cargo/reference/manifest.html)
+
+- [`cargo-features`](https://doc.rust-lang.org/cargo/reference/unstable.html) — 不稳定的、仅限夜间的功能。
+- [`[package]`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-package-section) — 定义包。
+  - [`name`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-name-field) — 包的名称。
+  - [`version`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-version-field) — 包的版本。
+  - [`authors`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-authors-field) — 包的作者。
+  - [`edition`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-edition-field) — Rust 版本。
+  - [`rust-version`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field) — 支持的最低 Rust 版本。
+  - [`description`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-description-field) — 包的描述。
+  - [`documentation`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-documentation-field) — 软件包文档的 URL。
+  - [`readme`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-readme-field) — 软件包的 README 文件的路径。
+  - [`homepage`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-homepage-field) — 软件包主页的 URL。
+  - [`repository`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-repository-field) — 包源存储库的 URL。
+  - [`license`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-license-and-license-file-fields) — 软件包许可证。
+  - [`license-file`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-license-and-license-file-fields) — 许可证文本的路径。
+  - [`keywords`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-keywords-field) — 包的关键字。
+  - [`categories`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-categories-field) — 包的类别。
+  - [`workspace`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-workspace-field) — 包的工作区路径。
+  - [`build`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-build-field) — 包构建脚本的路径。
+  - [`links`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-links-field) — 包链接的本机库的名称。
+  - [`exclude`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-exclude-and-include-fields) — 发布时要排除的文件。
+  - [`include`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-exclude-and-include-fields) — 发布时要包含的文件。
+  - [`publish`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-publish-field) — 可用于阻止发布包。
+  - [`metadata`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-metadata-table) — 外部工具的额外设置。
+  - [`default-run`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-default-run-field) — 由 [`cargo run`](https://doc.rust-lang.org/cargo/commands/cargo-run.html) 运行的默认二进制文件。
+  - [`autobins`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#target-auto-discovery) — 禁用二进制自动发现。
+  - [`autoexamples`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#target-auto-discovery) — 禁用示例自动发现。
+  - [`autotests`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#target-auto-discovery) — 禁用测试自动发现。
+  - [`autobenches`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#target-auto-discovery) — 禁用工作台自动发现。
+  - [`resolver`](https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions) — 设置要使用的依赖关系解析程序。
+- 目标表：（有关设置，请参阅[配置](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#configuring-a-target)）
+  - [`[lib]`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#library) — 库目标设置。
+  - [`[[bin]]`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries) — 二进制目标设置。
+  - [`[[example]]`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#examples) — 目标设置示例。
+  - [`[[test]]`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#tests) — 测试目标设置。
+  - [`[[bench]]`](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#benchmarks) — 基准目标设置。
+- 依赖项表：
+  - [`[dependencies]`](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html) — 包库依赖项。
+  - [`[dev-dependencies]`](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#development-dependencies) — 示例、测试和基准测试的依赖项。
+  - [`[build-dependencies]`](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#build-dependencies) — 构建脚本的依赖关系。
+  - [`[target]`](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies) — 特定于平台的依赖项。
+- [`[badges]`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-badges-section) — 要在注册表中显示的锁屏提醒。
+- [`[features]`](https://doc.rust-lang.org/cargo/reference/features.html) — 条件编译功能。
+- [`[lints]`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-lints-section) — 为此软件包配置 linter。
+- [`[patch]`](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section) — 覆盖依赖项。
+- [`[replace]`](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-replace-section) — 覆盖依赖项（已弃用）。
+- [`[profile]`](https://doc.rust-lang.org/cargo/reference/profiles.html) — 编译器设置和优化。
+- [`[workspace]`](https://doc.rust-lang.org/cargo/reference/workspaces.html) — 工作区定义。
+
+#### 默认
+
+```toml
+[package]
+name = "tool_name"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+```
+
+#### 常用
+
+```toml
+[package]
+name = "hello_opensource"
+version = "0.1.0"
+authors = ["user<user@mail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.3.14"
+
+```
+
+#### 更新依赖
+
+```bash
+cargo update [-p rand]
+```
+
+#### 描述
+
+```toml
+[package]
+#-snip-
+description = "A fun game where you guess what number the computer has chosen."
+```
+
+#### license
+
+```toml
+[package]
+#-snip-
+license = "MIT"
+```
+
+#### bin
+
+```toml
+[[bin]]
+#-snip-
+name = "tool_bin_name"# 可执行文件名源，会查找src/bin/tool_bin_name.rs或src/bin/tool_bin_name/main.rs
+test = false
+bench = false
+```
+
+#### lib
+
+```toml
+[lib]
+name = "foo"           # 目标名
+path = "src/lib.rs"    # 目标的源文件
+crate-type = ["lib"]   # 要生成的crate类型，可选的有bin, lib, rlib, dylib, cdylib, staticlib, and proc-macro
+test = true            # 默认为已测试
+doc = true             # 是否包含在默认情况下，由Cargo Doc生成文档
+edition = "2015"       # 定义目标将使用的 Rust 版本，通常不应设置此字段
+bench = true           # Is benchmarked by default.
+plugin = false         # Used as a compiler plugin (deprecated).
+proc-macro = false     # Set to `true` for a proc-macro library.
+harness = true         # Use libtest harness.
+required-features = [] # Features required to build this target (N/A for lib).
+
+```
+
+#### 优化等级
+
+```toml
+#opt-level 设置控制 Rust 会对代码进行何种程度的优化。这个配置的值从 0 到 3。越高的优化级别需要更多的时间编译，所以如果你在进行开发并经常编译，可能会希望在牺牲一些代码性能的情况下减少优化以便编译得快一些。因此 dev 的 opt-level 默认为 0。当你准备发布时，花费更多时间在编译上则更好。只需要在发布模式编译一次，而编译出来的程序则会运行很多次，所以发布模式用更长的编译时间换取运行更快的代码。这正是为什么 release 配置的 opt-level 默认为 3。
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
+
+```
+
+#### 工作空间
+
+> See [Cargo 工作空间 - Rust 程序设计语言 简体中文版 (kaisery.github.io)](https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html)
