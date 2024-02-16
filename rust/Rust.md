@@ -1,6 +1,25 @@
 # Rust
 
-## &和ref
+## 引用
+
+### 可变引用常见错误
+
+```rust
+//可变引用与可变变量产生数据竞争，导致编译失败。
+//error[E0499]: cannot borrow `a` as mutable more than once at a time
+fn main() {
+    let mut a = String::from("abc");
+    let b = &mut a;
+    a.push_str("ghi");
+    b.push_str("def");
+    println!("{}", a);
+}
+
+```
+
+### &和ref
+
+> 解引用通过实现trait Deref
 
 ```rust
 fn main() {
@@ -13,6 +32,7 @@ fn main() {
 
 ## 字符串
 
+```rust
 let mut s2: String = String::from(s);
 s.as_bytes();
 s.bytes();
@@ -23,6 +43,8 @@ s.contains("Hello");
 s2.clear();
 s.parse::<i32>().unwrap();
 s.trim();
+
+```
 
 ## 向量
 
@@ -162,6 +184,16 @@ fn main() {
 }
 
 ```
+## 自动推断类型
+
+```rust
+//常用于泛型参数中：
+fn main() {
+    let x: Vec<_> = (0..10).collect();
+}
+
+```
+
 ## 常量
 
 ```rust
@@ -517,6 +549,8 @@ cargo build --release
 
 > See [The Manifest Format - The Cargo Book (rust-lang.org)](https://doc.rust-lang.org/cargo/reference/manifest.html)
 
+>[[xxx]]双中括号表示可以有多个
+
 - [`cargo-features`](https://doc.rust-lang.org/cargo/reference/unstable.html) — 不稳定的、仅限夜间的功能。
 - [`[package]`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-package-section) — 定义包。
   - [`name`](https://doc.rust-lang.org/cargo/reference/manifest.html#the-name-field) — 包的名称。
@@ -649,6 +683,38 @@ opt-level = 0
 opt-level = 3
 
 ```
+#### 去除debug信息
+
+```toml
+[profile.release]
+# 可选"none", "debuginfo"和"symbols",
+# 或者是"true"和"false",
+# 默认strip = "none"
+strip = "debuginfo"
+
+```
+
 #### 工作空间
 
 > See [Cargo 工作空间 - Rust 程序设计语言 简体中文版 (kaisery.github.io)](https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html)
+
+## 汇编ASM
+
+> See [内联汇编 - Rust语言圣经(Rust Course)](https://course.rs/advance/unsafe/inline-asm.html)
+
+```rust
+use std::arch::asm;
+
+fn main() {
+    let mut x: u64 = 3;
+    unsafe {
+        //out表示输出，in表示输入，inout表示既输入又输出（可以保证使用同一个寄存器来完成任务）。
+        //reg表示让编译器自动选择合适的寄存器。
+        //可以像格式化字符串一样用{0}等复用。
+        asm!("add {0}, 5", inout(reg) x);
+    }
+    println!("{}", x);
+}
+
+```
+
