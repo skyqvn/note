@@ -106,6 +106,48 @@ opt.is_some();
 opt.is_none();
 
 ```
+## Enum
+
+```rust
+enum A {
+    X,
+    Y,
+    Z,
+}
+
+enum B {
+    X(i32),
+    Y(f32),
+    Z,
+}
+
+enum C {
+    X = 0,
+    Y = 1,
+    Z = 2,
+}
+
+fn main() {
+    let ax = A::X;
+    let bx = B::X(20);
+    //Way1:
+    match ax {
+        A::X => println!("x"),
+        A::Y => println!("y"),
+        _ => println!("neither X nor Y, it may be C"),
+    }
+    match bx {
+        B::X(v) => println!("x:{}", v),
+        B::Y(v) => println!("y:{}", v),
+        _ => println!("neither X nor Y, it may be C"),
+    }
+    if let B::X(v) = bx {
+        println!("x:{}", v)
+    }
+}
+
+```
+
 ## Derive
 
 ```rust
@@ -138,6 +180,72 @@ type NanoSecond = u64;
 //泛型别名
 type AliasedResult<T> = Result<T, ParseIntError>;
 ```
+## 关联类型
+
+```rust
+struct Container(i32, i32);
+
+// `A` 和 `B` 在 trait 里面通过 `type` 关键字来定义。
+// （注意：此处的 `type` 不同于为类型取别名时的 `type`）。
+trait Contains {
+    type A;
+    type B;
+
+    // 这种语法能够泛型地表示这些新类型。
+    fn contains(&self, _: &Self::A, _: &Self::B) -> bool;
+    fn first(&self) -> i32;
+    fn last(&self) -> i32;
+}
+
+impl Contains for Container {
+    type A = i32;
+    type B = i32;
+
+    // `&Self::A` 和 `&Self::B` 在这里也是合法的类型。
+    fn contains(&self, number_1: &i32, number_2: &i32) -> bool {
+        (&self.0 == number_1) && (&self.1 == number_2)
+    }
+
+    fn first(&self) -> i32 {
+        self.0
+    }
+
+    fn last(&self) -> i32 {
+        self.1
+    }
+}
+
+fn difference<C: Contains>(container: &C) -> i32 {
+    // C类型
+    // C::A
+    container.last() - container.first()
+}
+
+// <C: Contains<A = i32>>限制关联类型
+fn difference2<C: Contains<A = i32>>(container: &C) -> i32 {
+    container.last() - container.first()
+}
+
+fn main() {
+    let number_1 = 3;
+    let number_2 = 10;
+
+    let container = Container(number_1, number_2);
+
+    println!(
+        "Does container contain {} and {}: {}",
+        &number_1,
+        &number_2,
+        container.contains(&number_1, &number_2)
+    );
+    println!("First number: {}", container.first());
+    println!("Last number: {}", container.last());
+
+    println!("The difference is: {}", difference(&container));
+}
+
+```
+
 ## 运算符重载
 
 ```rust
@@ -224,6 +332,7 @@ impl From<i32> for Number {
 }
 
 fn main() {
+    // 都是自动类型判断
     let num = Number::from(30);
     let num: Number = 30.into();
     println!("My number is {:?}", num);
@@ -439,34 +548,6 @@ macro_rules! vec_strs {
 }
 
 ```
-## Mutex和Arc
-
-```rust
-use std::sync::{Arc, Mutex};
-use std::thread;
-
-fn main() {
-    let counter = Arc::new(Mutex::new(0));
-    let mut handles = vec![];
-
-    for _ in 0..10 {
-        let counter = Arc::clone(&counter);
-        let handle = thread::spawn(move || {
-            let mut num = counter.lock().unwrap();
-
-            *num += 1;
-        });
-        handles.push(handle);
-    }
-
-    for handle in handles {
-        handle.join().unwrap();
-    }
-
-    println!("Result: {}", *counter.lock().unwrap());
-}
-
-```
 ## 智能指针
 
 - `Box<T>`：它提供了最简单的堆资源分配方式，单所有权。Box类型拥有其中的值，并且可用于保存结构体中的值，或者从函数返回它们。
@@ -489,6 +570,8 @@ println!("{}", *a.borrow());
 let b = a.borrow_mut();
 let c = a.borrow_mut();
 ```
+> 多线程用`Arc<T>` + `Mutex<T>`。
+
 ### RefCell+Rc: 多个所有者 并且 可以修改值
 
 ```rust
