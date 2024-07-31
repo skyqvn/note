@@ -15,6 +15,8 @@ Constraints//极限大小
 	MaxWidth
 	MinHeight
 	MinWidth
+BorderSpacing//周围间距
+	- ···
 Hint//提示文字（鼠标悬浮或自动提示的提示文字），用A|B格式写时，A为鼠标悬浮时的提示文字，B为自动提示（多用在StatusBar中）文字
 ShowHint//是否显示提示文字
 Cursor//光标形状
@@ -233,7 +235,12 @@ VertScrollBar//纵向滚动条
 
 ```
 
+## 窗口方法
 
+```go
+form.ShowModal()//将窗口以遮盖父窗口的形式弹出，否则窗口将被嵌入父窗口
+form.SetParent(mainform)
+```
 
 ## 鼠标
 
