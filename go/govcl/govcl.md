@@ -97,7 +97,8 @@ FormStyle//
 	- fsNormal//既不是MDI父窗口，也不是一个MDI子窗口
 	- fsMDIChild//是一个MDI子窗口
 	- fsMDIForm//是一个MDI父窗口
-	- fsStayOnTop//窗体始终处在最前端
+	- fsSystemStayOnTop//窗体始终处在最前端
+	- fsStayOnTop//窗体可以处在最前端
 Left//到左侧距离，用于设置窗口位置
 PixelsPerlnch//分辨率，PPI
 Top//到顶部距离，用于设置窗口位置
@@ -238,8 +239,10 @@ VertScrollBar//纵向滚动条
 ## 窗口方法
 
 ```go
-form.ShowModal()//将窗口以遮盖父窗口的形式弹出，否则窗口将被嵌入父窗口
-form.SetParent(mainform)
+form.Show()//显示窗口
+form.ShowModal()//将窗口以遮盖父窗口的形式弹出，与Show不重复使用
+form.SetParent()//如果不是ShowModal，窗口将被嵌入父控件
+
 ```
 
 ## 鼠标
