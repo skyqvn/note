@@ -4,3 +4,6 @@ wsl --unregister Ubuntu
 wsl --import Ubuntu D:\Ubuntu_WSL D:\Ubuntu_WSL\Ubuntu.tar
 可执行文件位置：C:\Users\用户名\AppData\Local\Microsoft\WindowsApps\ubuntu.exe
 ubuntu config --default-user 用户名
+
+链接字体
+sudo ln -s /mnt/c/windows/Fonts /usr/share/fonts/font
