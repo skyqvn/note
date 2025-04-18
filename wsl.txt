@@ -2,8 +2,10 @@ wsl -l -v#查看所有设备
 wsl --export Ubuntu D:\Ubuntu_WSL\Ubuntu.tar
 wsl --unregister Ubuntu
 wsl --import Ubuntu D:\Ubuntu_WSL D:\Ubuntu_WSL\Ubuntu.tar
-可执行文件位置：C:\Users\用户名\AppData\Local\Microsoft\WindowsApps\ubuntu.exe
+wsl --manage ubuntu --set-default-user sky
+或
 ubuntu config --default-user 用户名
+（可执行文件位置：C:\Users\用户名\AppData\Local\Microsoft\WindowsApps\ubuntu.exe）
 
 链接字体
 sudo ln -s /mnt/c/windows/Fonts /usr/share/fonts/font
